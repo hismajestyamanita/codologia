@@ -49,17 +49,18 @@ export default async function sendLead(data: LeadPayload) {
   }
 }
 
-// --- Вспомогательная функция защиты от HTML-инъекций ---
+// --- Вспомогательная функция защиты от HTML-инъекций кек ---
 function escapeHtml(s: string) {
   return String(s).replace(/[&<>"']/g, (c) => {
     return (
       {
-        "&": "&amp;",
         "<": "&lt;",
         ">": "&gt;",
         '"': "&quot;",
         "'": "&#39;",
+        "&": "&amp;",
       }[c] || c
     );
   });
 }
+
