@@ -1,4 +1,4 @@
-export async function sendLead(data: { name: string; phone: string; message?: string }) {
+async function sendLead(data: { name: string; phone: string; message?: string }) {
   const res = await fetch('/.netlify/functions/notify-telegram', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
@@ -6,3 +6,5 @@ export async function sendLead(data: { name: string; phone: string; message?: st
   });
   return res.json();
 }
+
+export default sendLead;
