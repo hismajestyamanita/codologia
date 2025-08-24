@@ -1,38 +1,53 @@
 // src/shared/sendLead.ts
 
-export interface LeadPayload {
-  type: string;             // Название формы (по-русски)
-  parentName?: string;
-  childName?: string;
-  name?: string;            // для QuestionModal
-  phone: string;
-  age?: string;
-  program?: string;
-  message?: string;
+interface LeadPayload {
+  name?: string;        // общее имя (например QuestionModal)
+  parentName?: string;  // имя родителя
+  childName?: string;   // имя ребенка
+  phone: string;        // телефон
+  age?: string;         // возраст
+  program?: string;     // выбранная программа
+  message?: string;     // произвольный текст/вопрос
   preferredDate?: string;
   preferredTime?: string;
+  source?: string;      // откуда пришёл лид (signup-modal, lead-form и тд)
 }
 
 export default async function sendLead(data: LeadPayload) {
-  // Сборка сообщения для Telegram
-  const textLines: string[] = [];
+  const lines: string[] = [];
 
-  textLines.push(`📩 <b>${data.type || "Лид"}</b>\n`);
+  // Заголовок — по source, если есть
+  let typeLabel = "Лид";
+  switch (data.source) {
+    case "lead-form":
+      typeLabel = "Лид форма главного экрана";
+      break;
+    case "signup-modal":
+      typeLabel = "Модальное окно записи";
+      break;
+    case "unified-signup-modal":
+      typeLabel = "Универсальная форма записи";
+      break;
+    case "question-modal":
+      typeLabel = "Форма вопроса";
+      break;
+    default:
+      typeLabel = "Лид";
+  }
 
-  if (data.parentName) textLines.push(`👤 Родитель: ${escapeHtml(data.parentName)}`);
-  if (data.name) textLines.push(`👤 Имя: ${escapeHtml(data.name)}`);
-  if (data.childName) textLines.push(`🧒 Ребенок: ${escapeHtml(data.childName)}`);
-  if (data.age) textLines.push(`🎂 Возраст: ${escapeHtml(data.age)}`);
-  if (data.program) textLines.push(`📚 Программа: ${escapeHtml(data.program)}`);
-  textLines.push(`📞 Телефон: ${data.phone ? escapeHtml(data.phone) : "—"}`);
-  if (data.preferredDate) textLines.push(`📅 Дата: ${escapeHtml(data.preferredDate)}`);
-  if (data.preferredTime) textLines.push(`⏰ Время: ${escapeHtml(data.preferredTime)}`);
-  if (data.message) textLines.push(`💬 Сообщение: ${escapeHtml(data.message)}`);
+  lines.push(`📩 <b>${typeLabel}</b>\n`);
 
-  const body = {
-    ...data,
-    text: textLines.join("\n"),
-  };
+  if (data.parentName) lines.push(`👤 Родитель: ${escapeHtml(data.parentName)}`);
+  if (data.name) lines.push(`👤 Имя: ${escapeHtml(data.name)}`);
+  if (data.childName) lines.push(`🧒 Ребенок: ${escapeHtml(data.childName)}`);
+  if (data.age) lines.push(`🎂 Возраст: ${escapeHtml(data.age)}`);
+  if (data.program) lines.push(`📚 Программа: ${escapeHtml(data.program)}`);
+  lines.push(`📞 Телефон: ${data.phone ? escapeHtml(data.phone) : "—"}`);
+  if (data.preferredDate) lines.push(`📅 Дата: ${escapeHtml(data.preferredDate)}`);
+  if (data.preferredTime) lines.push(`⏰ Время: ${escapeHtml(data.preferredTime)}`);
+  if (data.message) lines.push(`💬 Сообщение: ${escapeHtml(data.message)}`);
+
+  const body = { ...data, text: lines.join("\n") };
 
   try {
     const res = await fetch("/.netlify/functions/notify-telegram", {
@@ -49,18 +64,17 @@ export default async function sendLead(data: LeadPayload) {
   }
 }
 
-// --- Вспомогательная функция защиты от HTML-инъекций кек ---
+// --- helper для защиты от HTML-инъекций ---
 function escapeHtml(s: string) {
   return String(s).replace(/[&<>"']/g, (c) => {
     return (
       {
+        "&": "&amp;",
         "<": "&lt;",
         ">": "&gt;",
         '"': "&quot;",
         "'": "&#39;",
-        "&": "&amp;",
       }[c] || c
     );
   });
 }
-
