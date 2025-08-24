@@ -7,21 +7,26 @@ export async function handler(event) {
   };
 
   if (event.httpMethod === 'OPTIONS') return { statusCode: 200, headers: cors, body: '' };
-  if (event.httpMethod !== 'POST') return { statusCode: 405, headers: cors, body: 'Method not allowed' };
+  if (event.httpMethod !== 'POST')   return { statusCode: 405, headers: cors, body: 'Method not allowed' };
 
   try {
     const data = JSON.parse(event.body || '{}');
-    const { name, phone, message = '', source = 'site', text } = data;
+    const { name, parentName, childName, phone, message = '', source = 'site', text } = data;
 
-    // Если sendLead собрал готовый текст — шлём его
-    let finalText = text;
+    // ВРЕМЕННЫЙ ЛОГ НА БЭКЕ: смотри в Netlify → Functions → notify-telegram → Logs
+    console.log('notify-telegram body:', data);
+
+    let finalText = text; // <= если фронт прислал готовый text — используем его
     if (!finalText) {
-      finalText =
-        `<b>Новая заявка</b>\n` +
-        (name ? `Имя: ${escapeHtml(name)}\n` : '') +
-        (phone ? `Телефон: ${escapeHtml(phone)}\n` : '') +
-        (message ? `Сообщение: ${escapeHtml(message)}\n` : '') +
-        `Источник: ${escapeHtml(source)}`;
+      const lines = [];
+      lines.push(`<b>Новая заявка</b>\n`);
+      const displayName = parentName || name;
+      if (displayName) lines.push(`Имя: ${escapeHtml(displayName)}`);
+      if (childName)   lines.push(`Ребёнок: ${escapeHtml(childName)}`);
+      if (phone)       lines.push(`Телефон: ${escapeHtml(phone)}`);
+      if (message)     lines.push(`Сообщение: ${escapeHtml(message)}`);
+      lines.push(`Источник: ${escapeHtml(source)}`);
+      finalText = lines.join('\n');
     }
 
     const tg = await fetch(`https://api.telegram.org/bot${process.env.TELEGRAM_BOT_TOKEN}/sendMessage`, {
@@ -31,6 +36,7 @@ export async function handler(event) {
         chat_id: process.env.TELEGRAM_CHAT_ID,
         text: finalText,
         parse_mode: 'HTML',
+        disable_web_page_preview: true
       }),
     });
 
@@ -47,15 +53,7 @@ export async function handler(event) {
 }
 
 function escapeHtml(s) {
-  return String(s).replace(/[&<>"']/g, (c) => {
-    return (
-      {
-        "&": "&amp;",
-        "<": "&lt;",
-        ">": "&gt;",
-        '"': "&quot;",
-        "'": "&#39;",
-      }[c] || c
-    );
-  });
+  return String(s).replace(/[&<>"']/g, (c) => ({
+    '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;',
+  }[c] || c));
 }
