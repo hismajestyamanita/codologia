@@ -154,11 +154,13 @@ const UnifiedSignupModal: React.FC<UnifiedSignupModalProps> = ({
 
     try {
       const ok = await sendLead({
-        name: formData.parentName,
+        parentName: formData.parentName,
+        childName: formData.childName,          // <-- добавили
         phone: formData.phone,
         program: formData.ageGroup,
         source: "unified-signup-modal",
       });
+      
 
       trackEvent(ok ? "lead_success" : "lead_fail", { where: "UnifiedSignupModal" });
       

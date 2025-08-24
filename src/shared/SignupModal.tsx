@@ -113,12 +113,13 @@ const SignupModal: React.FC<SignupModalProps> = ({ onClose }) => {
     try {
       // Отправляем лид в Telegram
       const ok = await sendLead({
-        name: formData.parentName,
+        parentName: formData.parentName,
+        childName: formData.childName,          // <-- добавили
         phone: formData.phone,
-        age: formData.childAge,
-        program: "Запись на занятие",
-        source: "signup-modal",
-      });      
+        program: formData.ageGroup,
+        source: "unified-signup-modal",
+      });
+       
 
       trackEvent(ok ? "lead_success" : "lead_fail", { where: "SignupModal" });
       

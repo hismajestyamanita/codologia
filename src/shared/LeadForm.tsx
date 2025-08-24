@@ -63,12 +63,14 @@ const LeadForm: React.FC<LeadFormProps> = ({ onClose }) => {
     try {
       // Отправляем лид в Telegram
       const ok = await sendLead({
-        name: formData.parentName,
+        parentName: formData.parentName,
+        childName: formData.childName,          // <-- добавили
         phone: formData.phone,
-        age: formData.childAge,
-        program: "Запись на занятие",
-        source: "lead-form",
+        program: formData.ageGroup,
+        source: "unified-signup-modal",
       });
+      
+      
 
       trackEvent(ok ? "lead_success" : "lead_fail", { where: "LeadForm" });
       
