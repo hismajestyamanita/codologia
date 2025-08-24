@@ -167,9 +167,24 @@ const Quiz = () => {
     }
   };
 
-  const handleContactSubmit = (contactData: { name: string; phone: string }) => {
-    setAnswers(prev => ({ ...prev, contact: JSON.stringify(contactData) }));
-    setShowResults(true);
+  const handleContactSubmit = async (contactData: { name: string; phone: string }) => {
+    try {
+      const ok = await sendLead({
+        name: contactData.name,
+        phone: contactData.phone,
+        program: "Квиз - подбор программы",
+        source: "quiz-form",
+      });
+  
+      trackEvent(ok ? "lead_success" : "lead_fail", { where: "Quiz", stage: "contact" });
+    } catch (e) {
+      // по желанию: показать alert/тост
+      console.error("quiz sendLead error", e);
+    } finally {
+      // показываем экран «Спасибо»
+      setAnswers(prev => ({ ...prev, contact: JSON.stringify(contactData) }));
+      setShowResults(true);
+    }
   };
   const handlePrevious = () => {
     if (currentQuestion > 0) {
