@@ -67,7 +67,7 @@ const LeadForm: React.FC<LeadFormProps> = ({ onClose }) => {
         childName: formData.childName,          // <-- добавили
         phone: formData.phone,
         program: formData.ageGroup,
-        source: "unified-signup-modal",
+        source: "lead-forml",
       });
       
       
