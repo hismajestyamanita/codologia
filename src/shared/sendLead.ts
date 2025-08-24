@@ -1,44 +1,43 @@
 // src/shared/sendLead.ts
 
 interface LeadPayload {
-  name?: string;        // общее имя (например QuestionModal)
-  parentName?: string;  // имя родителя
-  childName?: string;   // имя ребенка
-  phone: string;        // телефон
-  age?: string;         // возраст
-  program?: string;     // выбранная программа
-  message?: string;     // произвольный текст/вопрос
-  preferredDate?: string;
-  preferredTime?: string;
-  source?: string;      // откуда пришёл лид (signup-modal, lead-form и тд)
+  name?: string;          // имя родителя или юзера
+  parentName?: string;    // отдельное поле в LeadForm / SignupModal
+  childName?: string;     // имя ребёнка
+  phone: string;          // телефон
+  age?: string;           // возраст ребёнка
+  program?: string;       // программа / "Запись на занятие" / "Вопрос"
+  message?: string;       // кастомный текст, если есть
+  preferredDate?: string; // дата из LeadForm
+  preferredTime?: string; // время из LeadForm
+  source?: string;        // lead-form, signup-modal, unified-signup-modal, question-modal
+}
+
+function getFormType(source?: string) {
+  switch (source) {
+    case "lead-form":
+      return "Лид форма главного экрана";
+    case "signup-modal":
+      return "Форма записи (модальное окно)";
+    case "unified-signup-modal":
+      return "Форма после квиза / выбора программы";
+    case "question-modal":
+      return "Форма вопроса";
+    default:
+      return "Лид с сайта";
+  }
 }
 
 export default async function sendLead(data: LeadPayload) {
   const lines: string[] = [];
 
-  // Заголовок — по source, если есть
-  let typeLabel = "Лид";
-  switch (data.source) {
-    case "lead-form":
-      typeLabel = "Лид форма главного экрана";
-      break;
-    case "signup-modal":
-      typeLabel = "Модальное окно записи";
-      break;
-    case "unified-signup-modal":
-      typeLabel = "Универсальная форма записи";
-      break;
-    case "question-modal":
-      typeLabel = "Форма вопроса";
-      break;
-    default:
-      typeLabel = "Лид";
-  }
-
+  // Заголовок
+  const typeLabel = getFormType(data.source);
   lines.push(`📩 <b>${typeLabel}</b>\n`);
 
-  if (data.parentName) lines.push(`👤 Родитель: ${escapeHtml(data.parentName)}`);
+  // Поля
   if (data.name) lines.push(`👤 Имя: ${escapeHtml(data.name)}`);
+  if (data.parentName) lines.push(`👤 Родитель: ${escapeHtml(data.parentName)}`);
   if (data.childName) lines.push(`🧒 Ребенок: ${escapeHtml(data.childName)}`);
   if (data.age) lines.push(`🎂 Возраст: ${escapeHtml(data.age)}`);
   if (data.program) lines.push(`📚 Программа: ${escapeHtml(data.program)}`);

@@ -104,7 +104,7 @@ const QuestionModal: React.FC<QuestionModalProps> = ({ onClose }) => {
         phone: formData.phone,
         program: "Вопрос",
         source: "question-modal",
-      });
+      });      
 
       trackEvent(ok ? "lead_success" : "lead_fail", { where: "QuestionModal" });
       

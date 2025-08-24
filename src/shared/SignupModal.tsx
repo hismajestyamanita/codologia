@@ -118,7 +118,7 @@ const SignupModal: React.FC<SignupModalProps> = ({ onClose }) => {
         age: formData.childAge,
         program: "Запись на занятие",
         source: "signup-modal",
-      });
+      });      
 
       trackEvent(ok ? "lead_success" : "lead_fail", { where: "SignupModal" });
       
