@@ -79,7 +79,7 @@ export const Footer = () => {
         <div className="relative flex justify-between items-center py-8 pointer-events-none">
           {/* Шахматы - слева */}
           <img
-            src="/assets/img/09-footer/09-footer-chess.png"
+            src="/assets/img/09-footer/09-footer-chess.webp"
             alt=""
             className="w-144 h-144 md:w-144 md:h-144 opacity-30"
             style={{ 
@@ -90,7 +90,7 @@ export const Footer = () => {
           
           {/* Карандаш - справа */}
           <img
-            src="/assets/img/09-footer/09-footer-pencil.png"
+            src="/assets/img/09-footer/09-footer-pencil.webp"
             alt=""
             className="hidden md:block w-144 h-144 md:w-144 md:h-144 opacity-30"
             style={{

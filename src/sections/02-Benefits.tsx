@@ -19,25 +19,25 @@ const Benefits = () => {
       icon: <Gamepad2 className="w-8 h-8" />,
       title: "Без зубрёжки",
       description: "учим через игры, мемы и визуал",
-      image: "/assets/img/02-benefits/02-benefits-card-01.jpg"
+      image: "/assets/img/02-benefits/02-benefits-card-01.webp"
     },
     {
       icon: <Building className="w-8 h-8" />,
       title: "Модули как лего",
       description: "собираете то, что реально интересно",
-      image: "/assets/img/02-benefits/02-benefits-card-02.jpg"
+      image: "/assets/img/02-benefits/02-benefits-card-02.webp"
     },
     {
       icon: <Clock className="w-8 h-8" />,
       title: "Мягкий старт",
       description: "не перегружаем, 1 занятие в неделю",
-      image: "/assets/img/02-benefits/02-benefits-card-03.jpg"
+      image: "/assets/img/02-benefits/02-benefits-card-03.webp"
     },
     {
       icon: <Heart className="w-8 h-8" />,
       title: "Крутые проекты",
       description: "свои игры, приложения и сайты\n— которые реально работают и впечатляют",
-      image: "/assets/img/02-benefits/02-benefits-card-04.jpg"
+      image: "/assets/img/02-benefits/02-benefits-card-04.webp"
     }
   ];
 

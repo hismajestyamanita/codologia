@@ -43,7 +43,7 @@ const FAQ = () => {
       <div 
         className="absolute inset-0 w-full h-full z-0"
         style={{
-          backgroundImage: 'url(/assets/img/06-faq/06-faq-bg.png)',
+          backgroundImage: 'url(/assets/img/06-faq/06-faq-bg.webp)',
           backgroundSize: 'cover',
           backgroundPosition: window.innerWidth < 768 ? 'center 120px' : 'center 10px',
           backgroundRepeat: 'no-repeat'

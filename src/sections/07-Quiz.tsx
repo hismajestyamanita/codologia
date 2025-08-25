@@ -630,7 +630,7 @@ const Quiz = () => {
         <div className="relative mt-8 pointer-events-none">
           {/* Синий курсор - левый нижний угол */}
           <img
-            src="/assets/img/07-quiz/07-quiz-arrow.png"
+            src="/assets/img/07-quiz/07-quiz-arrow.webp"
             alt=""
             className="absolute w-1/4 h-auto animate-breathe"
             style={{ left: '-120px', bottom: '42px', transform: 'rotate(30deg)' }}
@@ -638,7 +638,7 @@ const Quiz = () => {
           
           {/* Зеленый палец - правый нижний угол */}
           <img
-            src="/assets/img/07-quiz/07-quiz-finger.png"
+            src="/assets/img/07-quiz/07-quiz-finger.webp"
             alt=""
             className="absolute -bottom-6 w-1/4 h-auto animate-breathe-reverse"
             style={{ right: '-120px', transform: 'rotate(-95deg)' }}

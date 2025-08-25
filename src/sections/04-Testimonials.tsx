@@ -139,7 +139,7 @@ const Testimonials = () => {
           {/* Зеленые скобки - левый верхний угол */}
           <img
             ref={greenRef}
-            src="/assets/img/04-testimonials/04-testimonials-green-skobs.png"
+            src="/assets/img/04-testimonials/04-testimonials-green-skobs.webp"
             alt=""
             className="absolute -top-20 -left-20 w-96 h-96 pointer-events-none"
             data-rotate="rotate(12deg)"
@@ -148,7 +148,7 @@ const Testimonials = () => {
           {/* Розовая стрелка - правый верхний угол */}
           <img
             ref={pinkRef}
-            src="/assets/img/04-testimonials/04-testimonials-arrow-pink.png"
+            src="/assets/img/04-testimonials/04-testimonials-arrow-pink.webp"
             alt=""
             className="absolute -top-16 -right-16 w-96 h-96 pointer-events-none"
             data-rotate="rotate(-175deg)"
@@ -157,7 +157,7 @@ const Testimonials = () => {
           {/* Красные скобки - левый нижний угол */}
           <img
             ref={redRef}
-            src="/assets/img/04-testimonials/04-testimonials-red-skobs.png"
+            src="/assets/img/04-testimonials/04-testimonials-red-skobs.webp"
             alt=""
             className="absolute -bottom-16 -left-16 w-96 h-96 pointer-events-none"
             data-rotate="rotate(-12deg)"

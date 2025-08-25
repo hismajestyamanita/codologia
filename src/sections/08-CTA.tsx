@@ -115,7 +115,7 @@ const CTA = () => {
               {/* Первая фотография */}
               <div className="aspect-[3/2] flex items-center justify-center overflow-hidden">
                 <img 
-                  src="/assets/img/08-cta/08-cta-boy-01.png" 
+                  src="/assets/img/08-cta/08-cta-boy-01.webp" 
                   alt="Ученик школы программирования Кодология за работой"
                   className="w-full h-full object-contain"
                 />
@@ -124,7 +124,7 @@ const CTA = () => {
               {/* Вторая фотография */}
               <div className="aspect-[3/2] flex items-center justify-center overflow-hidden">
                 <img 
-                  src="/assets/img/08-cta/08-cta-boy-02.png" 
+                  src="/assets/img/08-cta/08-cta-boy-02.webp" 
                   alt="Студент изучает программирование в IT-школе Кодология"
                   className="w-full h-full object-contain"
                 />

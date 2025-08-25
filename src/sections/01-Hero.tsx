@@ -194,7 +194,7 @@ const Hero = () => {
         <div className="absolute inset-0 pointer-events-none hidden md:block">
           {/* Левый верхний объект */}
           <img
-            src="/assets/img/01-hero/03-hero-morgen.png"
+            src="/assets/img/01-hero/03-hero-morgen.webp"
             alt=""
             className="absolute -left-20 animate-breathe opacity-80 transform scale-125"
             style={{ 
@@ -208,7 +208,7 @@ const Hero = () => {
           
           {/* Правый верхний объект */}
           <img
-            src="/assets/img/01-hero/02-hero-cube.png"
+            src="/assets/img/01-hero/02-hero-cube.webp"
             alt=""
             className="absolute animate-breathe-reverse opacity-80"
             style={{ 
@@ -226,7 +226,7 @@ const Hero = () => {
         <div className="absolute inset-0 pointer-events-none md:hidden">
           {/* Левый объект - сбоку от текста */}
           <img
-            src="/assets/img/01-hero/03-hero-morgen.png"
+            src="/assets/img/01-hero/03-hero-morgen.webp"
             alt=""
             className="absolute animate-breathe opacity-60 transform scale-75"
             style={{ 
@@ -241,7 +241,7 @@ const Hero = () => {
           
           {/* Правый объект - сбоку от текста */}
           <img
-            src="/assets/img/01-hero/02-hero-cube.png"
+            src="/assets/img/01-hero/02-hero-cube.webp"
             alt=""
             className="absolute animate-breathe-reverse opacity-60 transform scale-75"
             style={{ 
@@ -336,7 +336,7 @@ const Hero = () => {
               {/* Изображение ребенка */}
               <div className="relative mb-8">
                 <img
-                  src="/assets/img/01-hero/01-hero-kid.png"
+                  src="/assets/img/01-hero/01-hero-kid.webp"
                   alt="Ученик школы программирования Кодология"
                   className="w-auto h-auto max-w-none"
                 />
