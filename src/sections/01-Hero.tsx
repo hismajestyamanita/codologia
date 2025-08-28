@@ -104,11 +104,13 @@ const Hero = () => {
 
     try {
       const ok = await sendLead({
-        name: modalData.name,
+        parentName: modalData.name,      // имя родителя
+        childName: modalData.childName,  // ИМЯ РЕБЁНКА — ВАЖНО
         phone: modalData.phone,
-        program: modalData.product,
+        program: modalData.product || "Не знаю, помогите подобрать",
         source: "hero-modal",
       });
+      
 
       trackEvent(ok ? "lead_success" : "lead_fail", { where: "HeroModal" });
       
