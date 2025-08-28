@@ -62,19 +62,16 @@ const LeadForm: React.FC<LeadFormProps> = ({ onClose }) => {
 
     try {
       // Отправляем лид в Telegram
-      const ok = await const ok = await sendLead({
+      const ok = await sendLead({
         parentName: formData.parentName,
         childName: formData.childName,
         phone: formData.phone,
-        age: formData.childAge,                             // возраст отдельной строкой
-        program: "Запись на занятие",                       // здесь нет выбора программы — ставим понятный ярлык
-        preferredDate: formData.preferredDate || undefined, // если пусто — не шлём
+        age: formData.childAge,
+        program: "Запись на занятие",
+        preferredDate: formData.preferredDate || undefined,
         preferredTime: formData.preferredTime || undefined,
-        source: "lead-form",                                // ВАЖНО: правильный source
-      });
-      
-      
-      
+        source: "lead-form",
+      });    
 
       trackEvent(ok ? "lead_success" : "lead_fail", { where: "LeadForm" });
       
