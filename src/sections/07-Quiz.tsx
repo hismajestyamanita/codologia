@@ -27,6 +27,33 @@ interface QuizResults {
 const Quiz = () => {
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [answers, setAnswers] = useState<Record<string, string>>({});
+  // ---- Квиз: форматирование ответов для ТГ ----
+  const titles: Record<string, string> = {
+    age: 'Возраст ребёнка',
+    experience: 'Опыт',
+    interests: 'Интересы',
+    goals: 'Цель обучения',
+    format: 'Формат занятий',
+  };
+
+  const getAnswerText = (qid: string) => {
+    const q = questions.find(q => q.id === qid);
+    const val = answers[qid];
+    if (!q || !val) return '—';
+    const a = q.answers.find(a => a.value === val);
+    return a ? a.text : '—';
+  };
+
+  const buildQuizSummary = () => {
+    return [
+      `${titles.age}: ${getAnswerText('age')}`,
+      `${titles.experience}: ${getAnswerText('experience')}`,
+      `${titles.interests}: ${getAnswerText('interests')}`,
+      `${titles.goals}: ${getAnswerText('goals')}`,
+      `${titles.format}: ${getAnswerText('format')}`,
+    ].join('\n');
+  };
+
   const [showResults, setShowResults] = useState(false);
   const [showForm, setShowForm] = useState(false);
   const [formData, setFormData] = useState({
@@ -169,23 +196,25 @@ const Quiz = () => {
 
   const handleContactSubmit = async (contactData: { name: string; phone: string }) => {
     try {
+      const summary = buildQuizSummary();
+  
       const ok = await sendLead({
         name: contactData.name,
         phone: contactData.phone,
-        program: "Квиз - подбор программы",
+        // age / childName тут обычно нет, ок
+        message: summary,              // <-- ВСЕ ОТВЕТЫ КВИЗА
         source: "quiz-form",
       });
   
       trackEvent(ok ? "lead_success" : "lead_fail", { where: "Quiz", stage: "contact" });
     } catch (e) {
-      // по желанию: показать alert/тост
       console.error("quiz sendLead error", e);
     } finally {
-      // показываем экран «Спасибо»
       setAnswers(prev => ({ ...prev, contact: JSON.stringify(contactData) }));
       setShowResults(true);
     }
   };
+  
   const handlePrevious = () => {
     if (currentQuestion > 0) {
       setCurrentQuestion(prev => prev - 1);
@@ -194,38 +223,27 @@ const Quiz = () => {
 
   const handleFormSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
     const validationErrors = validateForm();
-    
-    if (Object.keys(validationErrors).length > 0) {
-      setErrors(validationErrors);
-      
-      // Находим первое поле с ошибкой и прокручиваем к нему
-      const firstErrorField = Object.keys(validationErrors)[0];
-      scrollToField(firstErrorField);
-      return;
-    }
-
+    if (Object.keys(validationErrors).length > 0) { setErrors(validationErrors); scrollToField(Object.keys(validationErrors)[0]); return; }
     setIsSubmitting(true);
-
     try {
-      // Отправляем лид в Telegram
+      const summary = buildQuizSummary();
+  
       const ok = await sendLead({
         name: formData.name,
+        childName: formData.childName,   // если есть — тоже увидим в ТГ
+        age: formData.childAge,          // можно оставить, но дублируется с summary — по желанию
         phone: formData.phone,
-        age: formData.childAge,
-        program: "Квиз - подбор программы",
+        message: summary,                // <-- ВСЕ ОТВЕТЫ КВИЗА
         source: "quiz-form",
       });
-
+  
       trackEvent(ok ? "lead_success" : "lead_fail", { where: "Quiz" });
-      
       setShowResults(true);
     } catch (error) {
       alert('Произошла ошибка. Попробуйте еще раз или позвоните нам.');
       setIsSubmitting(false);
-    }
-    finally {
+    } finally {
       setIsSubmitting(false);
     }
   };
