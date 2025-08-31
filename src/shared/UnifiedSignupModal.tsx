@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { X, User, Baby, Phone, ArrowRight, Check, AlertCircle } from 'lucide-react';
+import { X, User, Phone, ArrowRight, Check, AlertCircle } from 'lucide-react';
 import sendLead from '../shared/sendLead';
 import { trackEvent } from './analytics';
 import { dispatchToast } from '../shared/GlobalToast';
@@ -270,7 +270,7 @@ const UnifiedSignupModal: React.FC<UnifiedSignupModalProps> = ({
           {/* Имя ребенка */}
           <div>
             <label className="flex items-center gap-2 text-sm font-medium text-gray-700 mb-2">
-              <Baby className="w-4 h-4 text-[#7CF23D]" />
+              <User className="w-4 h-4 text-[#7CF23D]" />
               Имя ребенка *
             </label>
             <input
@@ -293,7 +293,7 @@ const UnifiedSignupModal: React.FC<UnifiedSignupModalProps> = ({
           {/* Возрастная группа */}
           <div>
             <label className="flex items-center gap-2 text-sm font-medium text-gray-700 mb-2">
-              <Baby className="w-4 h-4 text-[#7CF23D]" />
+              <User className="w-4 h-4 text-[#7CF23D]" />
               Желаемая программа *
             </label>
             <select

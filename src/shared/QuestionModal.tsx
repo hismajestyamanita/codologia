@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { X, User, Phone, ArrowRight, Check, AlertCircle } from 'lucide-react';
 import sendLead from '../shared/sendLead';
 import { trackEvent } from './analytics';
+import { dispatchToast } from '../shared/GlobalToast';
 
 interface QuestionModalProps {
   onClose: () => void;
@@ -108,7 +109,7 @@ const QuestionModal: React.FC<QuestionModalProps> = ({ onClose }) => {
 
       trackEvent(ok ? "lead_success" : "lead_fail", { where: "QuestionModal" });
       
-      alert('Спасибо за ваш вопрос! Мы свяжемся с вами в течение рабочего дня и ответим на все интересующие вас вопросы.');
+      dispatchToast('');
       onClose();
     } catch (error) {
       alert('Произошла ошибка. Попробуйте еще раз или позвоните нам.');

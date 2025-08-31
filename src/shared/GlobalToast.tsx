@@ -1,3 +1,4 @@
+// src/shared/GlobalToast.tsx
 import React, { useEffect, useState } from 'react';
 
 type Toast = { text: string, id: number };
