@@ -17,13 +17,14 @@ const Programs = () => {
   const titleAnimation = useScrollAnimation({ delay: 0 });
   const { containerRef: programsRef, visibleItems: visiblePrograms } = useStaggeredAnimation(3, 200, 200);
 
+  // Correct paths to images located in public/assets/img/03-programs
   const imageSrc = [
-    '/assets/img/03-hero/03-programs-card-01-gamepad.webp',
-    '/assets/img/03-hero/03-programs-card-02-globus.webp',
-    '/assets/img/03-hero/03-programs-card-03-retro-pc.webp',
-    '/assets/img/03-hero/03-programs-card-04-kanikuly.webp',
-    '/assets/img/03-hero/03-programs-card-05-ux-ui.webp',
-    '/assets/img/03-hero/03-programs-card-06-gramotnost.webp'
+    '/assets/img/03-programs/03-programs-card-01-gamepad.webp',
+    '/assets/img/03-programs/03-programs-card-02-globus.webp',
+    '/assets/img/03-programs/03-programs-card-03-retro-pc.webp',
+    '/assets/img/03-programs/03-programs-card-04-kanikuly.webp',
+    '/assets/img/03-programs/03-programs-card-05-ux-ui.webp',
+    '/assets/img/03-programs/03-programs-card-06-gramotnost.webp'
   ];
 
   const programs = [
