@@ -2,18 +2,21 @@ import React, { useState } from 'react';
 import { X, User, Baby, Phone, ArrowRight, Check, AlertCircle } from 'lucide-react';
 import sendLead from '../shared/sendLead';
 import { trackEvent } from './analytics';
+import { dispatchToast } from '../shared/GlobalToast';
 
 interface UnifiedSignupModalProps {
   onClose: () => void;
   initialPhone?: string;
   selectedProgram?: string;
+  source?: string;
 }
 
-const UnifiedSignupModal: React.FC<UnifiedSignupModalProps> = ({ 
-  onClose, 
+const UnifiedSignupModal: React.FC<UnifiedSignupModalProps> = ({
+  onClose,
   initialPhone = '',
-  selectedProgram = ''
-}) => {
+  selectedProgram = '',
+  source = 'unified-signup-modal'
+  }) => {
   // Функция для определения возрастной группы по названию программы
   const getAgeGroupFromProgram = (programTitle: string) => {
     if (programTitle.includes('8-10') || programTitle.includes('Компьютерная грамотность')) {
