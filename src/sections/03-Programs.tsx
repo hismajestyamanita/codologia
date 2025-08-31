@@ -18,12 +18,12 @@ const Programs = () => {
   const { containerRef: programsRef, visibleItems: visiblePrograms } = useStaggeredAnimation(3, 200, 200);
 
   const videoSrc = [
-    '/assets/img/03-hero/03-programs-card-01-gamepad.mp4',
-    '/assets/img/03-hero/03-programs-card-02-globus.mp4',
-    '/assets/img/03-hero/03-programs-card-03-retro-pc.mp4',
-    '/assets/img/03-hero/03-programs-card-04-kanikuly.mp4',
-    '/assets/img/03-hero/03-programs-card-05-ux-ui.mp4',
-    '/assets/img/03-hero/03-programs-card-06-gramotnost.mp4'
+    '/assets/img/03-hero/03-programs-card-01-gamepad.webp',
+    '/assets/img/03-hero/03-programs-card-02-globus.webp',
+    '/assets/img/03-hero/03-programs-card-03-retro-pc.webp',
+    '/assets/img/03-hero/03-programs-card-04-kanikuly.webp',
+    '/assets/img/03-hero/03-programs-card-05-ux-ui.webp',
+    '/assets/img/03-hero/03-programs-card-06-gramotnost.webp'
   ];
 
   const programs = [
