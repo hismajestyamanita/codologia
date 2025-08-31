@@ -415,6 +415,11 @@ const Programs = () => {
                       loading="lazy"
                       draggable={false}
                     />
+                    {/* Dark overlay for better text contrast */}
+                    <div
+                      aria-hidden="true"
+                      className="absolute inset-0 bg-gradient-to-b from-black/20 via-black/40 to-black/70 pointer-events-none"
+                    />
 
                     {/* Program features as badges - top-left corner */}
                     <div className="relative z-10">
@@ -503,6 +508,11 @@ const Programs = () => {
                       alt=""
                       loading="lazy"
                       draggable={false}
+                    />
+                    {/* Dark overlay for better text contrast */}
+                    <div
+                      aria-hidden="true"
+                      className="absolute inset-0 bg-gradient-to-b from-black/20 via-black/40 to-black/70 pointer-events-none"
                     />
 
                     {/* Program features as badges - top-left corner */}
@@ -661,6 +671,11 @@ const Programs = () => {
                           alt=""
                           loading="lazy"
                           draggable={false}
+                        />
+                        {/* Dark overlay for better text contrast */}
+                        <div
+                          aria-hidden="true"
+                          className="absolute inset-0 bg-gradient-to-b from-black/20 via-black/40 to-black/70 pointer-events-none"
                         />
 
                         {/* Program features as badges - top-left corner */}
