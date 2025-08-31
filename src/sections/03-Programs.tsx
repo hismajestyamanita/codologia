@@ -17,7 +17,7 @@ const Programs = () => {
   const titleAnimation = useScrollAnimation({ delay: 0 });
   const { containerRef: programsRef, visibleItems: visiblePrograms } = useStaggeredAnimation(3, 200, 200);
 
-  const videoSrc = [
+  const imageSrc = [
     '/assets/img/03-hero/03-programs-card-01-gamepad.webp',
     '/assets/img/03-hero/03-programs-card-02-globus.webp',
     '/assets/img/03-hero/03-programs-card-03-retro-pc.webp',
@@ -402,40 +402,17 @@ const Programs = () => {
                   key={index} 
                   className={`group shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 relative hover:z-10 overflow-hidden hover:shadow-[0_0_60px_20px_rgba(124,242,61,0.9)] animate-on-scroll w-full ${visiblePrograms[index] ? 'visible' : ''}`} 
                   style={{ borderRadius: '24px' }}
-                  onMouseEnter={(e) => {
-                    const video = e.currentTarget.querySelector('video');
-                    if (video) {
-                      video.currentTime = 0;
-                      video.play();
-                    }
-                  }}
-                  onMouseLeave={(e) => {
-                    const video = e.currentTarget.querySelector('video');
-                    if (video) {
-                      video.pause();
-                      video.currentTime = 0;
-                    }
-                  }}
                 >
                   <div 
                     className="aspect-[3/4] relative p-6"
                   >
-                    {/* Video Background */}
-                    <video
-                      className="absolute inset-0 w-full h-full object-cover transition-opacity duration-300 pointer-events-none"
-                      muted
-                      playsInline
-                      loop
-                      preload="metadata"
-                      crossOrigin="anonymous"
-                      src={videoSrc[index]}
-                      onMouseEnter={(e) => {
-                        e.currentTarget.play();
-                      }}
-                      onMouseLeave={(e) => {
-                        e.currentTarget.pause();
-                        e.currentTarget.currentTime = 0;
-                      }}
+                    {/* Image Background */}
+                    <img
+                      className="absolute inset-0 w-full h-full object-cover transition-opacity duration-300 pointer-events-none select-none"
+                      src={imageSrc[index]}
+                      alt=""
+                      loading="lazy"
+                      draggable={false}
                     />
 
                     {/* Program features as badges - top-left corner */}
@@ -445,9 +422,7 @@ const Programs = () => {
                           return (
                             <div key={idx} className="relative overflow-hidden bg-[#FEFEFE]/15 backdrop-blur-md border border-[#FEFEFE]/20 text-[#FEFEFE] px-3 py-1 rounded-small text-xs font-medium shadow-sm transition-all duration-300 cursor-pointer group/badge">
                               <span className="relative z-10">{badge}</span>
-                              {/* Блик при наведении на карточку */}
                               <div className="absolute inset-0 bg-gradient-to-r from-transparent via-[#FEFEFE]/40 to-transparent w-full h-full -translate-x-full group-hover:translate-x-full transition-transform duration-700 ease-out transform -skew-x-12"></div>
-                              {/* Блик при наведении на конкретный бейдж */}
                               <div className="absolute inset-0 bg-gradient-to-r from-transparent via-[#FEFEFE]/40 to-transparent w-full h-full -translate-x-full group-hover/badge:translate-x-full transition-transform duration-700 ease-out transform -skew-x-12"></div>
                             </div>
                           );
@@ -455,16 +430,13 @@ const Programs = () => {
                       </div>
                     </div>
 
-                    {/* Age badge - above title, left aligned */}
                     {/* Grouped content container */}
                     <div className="absolute bottom-0 left-0 right-0 p-6 space-y-3 z-10">
                       {/* Age badge */}
                       <div className="flex justify-start">
                         <div className="relative overflow-hidden bg-[#FEFEFE]/20 backdrop-blur-md border border-[#FEFEFE]/30 text-[#FEFEFE] px-4 py-2 rounded-medium text-sm font-semibold shadow-lg transition-all duration-300 cursor-pointer group/age">
                           <span className="relative z-10">{program.age}</span>
-                          {/* Блик при наведении на карточку */}
                           <div className="absolute inset-0 bg-gradient-to-r from-transparent via-[#FEFEFE]/50 to-transparent w-full h-full -translate-x-full group-hover:translate-x-full transition-transform duration-700 ease-out transform -skew-x-12"></div>
-                          {/* Блик при наведении на конкретный бейдж */}
                           <div className="absolute inset-0 bg-gradient-to-r from-transparent via-[#FEFEFE]/50 to-transparent w-full h-full -translate-x-full group-hover/age:translate-x-full transition-transform duration-700 ease-out transform -skew-x-12"></div>
                         </div>
                       </div>
@@ -479,11 +451,8 @@ const Programs = () => {
                        <span className="text-[#FEFEFE]">{program.price}</span>
                       </div>
                       
-                      {/* Button */}
-                      
                       {/* Buttons Row */}
                       <div className="flex gap-3 w-full">
-                        {/* Signup Button */}
                         <button 
                           onClick={() => openUnifiedSignupModal(program.title)}
                           className="w-full relative overflow-hidden bg-gradient-to-r from-brand-green via-accent-brightGreen to-brand-green text-brand-black font-bold py-3 px-4 rounded-medium transition-all duration-300 flex items-center justify-center gap-2 group/signup shadow-lg hover:shadow-2xl hover:shadow-brand-green/60 hover:scale-105"
@@ -493,31 +462,19 @@ const Programs = () => {
                         >
                           <span className="relative z-10 text-sm">Записаться</span>
                           <Star className="w-4 h-4 group-hover/signup:rotate-180 group-hover/signup:scale-110 transition-all duration-500" />
-                          
-                          {/* Двойной контур эффект */}
                           <div className="absolute inset-0 rounded-medium border-2 border-[#FFFFFF]/30 pointer-events-none"></div>
                           <div className="absolute inset-1 rounded-medium border border-[#FFFFFF]/20 pointer-events-none"></div>
-                          
-                          {/* Постоянный блик */}
                           <div className="absolute inset-0 bg-gradient-to-r from-transparent via-[#FFFFFF]/60 to-transparent w-full h-full -translate-x-full animate-shimmer"></div>
-                          
-                          {/* Блик при наведении на карточку */}
                           <div className="absolute inset-0 bg-gradient-to-r from-transparent via-[#FEFEFE]/40 to-transparent w-full h-full -translate-x-full group-hover:translate-x-full transition-transform duration-700 ease-out transform -skew-x-12"></div>
-                          {/* Блик при наведении на кнопку */}
                           <div className="absolute inset-0 bg-gradient-to-r from-transparent via-[#FEFEFE]/50 to-transparent w-full h-full -translate-x-full group-hover/button:translate-x-full transition-transform duration-700 ease-out transform -skew-x-12"></div>
                         </button>
-                        
-                        {/* Details Button */}
                         <button 
                           onClick={() => openModal(index)}
                           className="w-full relative overflow-hidden bg-brand-white/20 backdrop-blur-md border border-brand-white/30 hover:bg-brand-white/90 text-brand-white hover:text-brand-black font-semibold py-3 px-4 rounded-medium transition-all duration-300 flex items-center justify-center gap-2 group/button shadow-lg"
                         >
                           <span className="relative z-10 text-sm">Подробнее</span>
                           <ArrowRight className="w-4 h-4 group-hover/button:translate-x-1 transition-transform duration-300" />
-                          
-                          {/* Блик при наведении на карточку */}
                           <div className="absolute inset-0 bg-gradient-to-r from-transparent via-brand-white/40 to-transparent w-full h-full -translate-x-full group-hover:translate-x-full transition-transform duration-700 ease-out transform -skew-x-12"></div>
-                          {/* Блик при наведении на кнопку */}
                           <div className="absolute inset-0 bg-gradient-to-r from-transparent via-brand-white/50 to-transparent w-full h-full -translate-x-full group-hover/button:translate-x-full transition-transform duration-700 ease-out transform -skew-x-12"></div>
                         </button>
                       </div>
@@ -534,40 +491,17 @@ const Programs = () => {
                   key={`second-${index}`} 
                   className={`group shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 relative hover:z-10 overflow-hidden hover:shadow-[0_0_60px_20px_rgba(124,242,61,0.9)] animate-on-scroll w-full ${visiblePrograms[index] ? 'visible' : ''}`} 
                   style={{ borderRadius: '24px' }}
-                  onMouseEnter={(e) => {
-                    const video = e.currentTarget.querySelector('video');
-                    if (video) {
-                      video.currentTime = 0;
-                      video.play();
-                    }
-                  }}
-                  onMouseLeave={(e) => {
-                    const video = e.currentTarget.querySelector('video');
-                    if (video) {
-                      video.pause();
-                      video.currentTime = 0;
-                    }
-                  }}
                 >
                   <div 
                     className="aspect-[3/4] relative p-6"
                   >
-                    {/* Video Background */}
-                    <video
-                      className="absolute inset-0 w-full h-full object-cover transition-opacity duration-300 pointer-events-none"
-                      muted
-                      playsInline
-                      loop
-                      preload="metadata"
-                      crossOrigin="anonymous"
-                      src={videoSrc[index + 3]}
-                      onMouseEnter={(e) => {
-                        e.currentTarget.play();
-                      }}
-                      onMouseLeave={(e) => {
-                        e.currentTarget.pause();
-                        e.currentTarget.currentTime = 0;
-                      }}
+                    {/* Image Background */}
+                    <img
+                      className="absolute inset-0 w-full h-full object-cover transition-opacity duration-300 pointer-events-none select-none"
+                      src={imageSrc[index + 3]}
+                      alt=""
+                      loading="lazy"
+                      draggable={false}
                     />
 
                     {/* Program features as badges - top-left corner */}
@@ -577,9 +511,7 @@ const Programs = () => {
                           return (
                             <div key={idx} className="relative overflow-hidden bg-[#FEFEFE]/15 backdrop-blur-md border border-[#FEFEFE]/20 text-[#FEFEFE] px-3 py-1 rounded-small text-xs font-medium shadow-sm transition-all duration-300 cursor-pointer group/badge">
                               <span className="relative z-10">{badge}</span>
-                              {/* Блик при наведении на карточку */}
                               <div className="absolute inset-0 bg-gradient-to-r from-transparent via-[#FEFEFE]/40 to-transparent w-full h-full -translate-x-full group-hover:translate-x-full transition-transform duration-700 ease-out transform -skew-x-12"></div>
-                              {/* Блик при наведении на конкретный бейдж */}
                               <div className="absolute inset-0 bg-gradient-to-r from-transparent via-[#FEFEFE]/40 to-transparent w-full h-full -translate-x-full group-hover/badge:translate-x-full transition-transform duration-700 ease-out transform -skew-x-12"></div>
                             </div>
                           );
@@ -587,16 +519,13 @@ const Programs = () => {
                       </div>
                     </div>
 
-                    {/* Age badge - above title, left aligned */}
                     {/* Grouped content container */}
                     <div className="absolute bottom-0 left-0 right-0 p-6 space-y-3 z-10">
                       {/* Age badge */}
                       <div className="flex justify-start">
                         <div className="relative overflow-hidden bg-[#FEFEFE]/20 backdrop-blur-md border border-[#FEFEFE]/30 text-[#FEFEFE] px-4 py-2 rounded-medium text-sm font-semibold shadow-lg transition-all duration-300 cursor-pointer group/age">
                           <span className="relative z-10">{program.age}</span>
-                          {/* Блик при наведении на карточку */}
                           <div className="absolute inset-0 bg-gradient-to-r from-transparent via-[#FEFEFE]/50 to-transparent w-full h-full -translate-x-full group-hover:translate-x-full transition-transform duration-700 ease-out transform -skew-x-12"></div>
-                          {/* Блик при наведении на конкретный бейдж */}
                           <div className="absolute inset-0 bg-gradient-to-r from-transparent via-[#FEFEFE]/50 to-transparent w-full h-full -translate-x-full group-hover/age:translate-x-full transition-transform duration-700 ease-out transform -skew-x-12"></div>
                         </div>
                       </div>
@@ -611,11 +540,8 @@ const Programs = () => {
                        <span className="text-[#FEFEFE]">{program.price}</span>
                       </div>
                       
-                      {/* Button */}
-                      
                       {/* Buttons Row */}
                       <div className="flex gap-3 w-full">
-                        {/* Signup Button */}
                         <button 
                           onClick={() => openUnifiedSignupModal(program.title)}
                           className="w-full relative overflow-hidden bg-gradient-to-r from-brand-green via-accent-brightGreen to-brand-green text-brand-black font-bold py-3 px-4 rounded-medium transition-all duration-300 flex items-center justify-center gap-2 group/signup shadow-lg hover:shadow-2xl hover:shadow-brand-green/60 hover:scale-105"
@@ -625,31 +551,20 @@ const Programs = () => {
                         >
                           <span className="relative z-10 text-sm">Записаться</span>
                           <Star className="w-4 h-4 group-hover/signup:rotate-180 group-hover/signup:scale-110 transition-all duration-500" />
-                          
-                          {/* Двойной контур эффект */}
                           <div className="absolute inset-0 rounded-medium border-2 border-[#FFFFFF]/30 pointer-events-none"></div>
                           <div className="absolute inset-1 rounded-medium border border-[#FFFFFF]/20 pointer-events-none"></div>
-                          
-                          {/* Постоянный блик */}
                           <div className="absolute inset-0 bg-gradient-to-r from-transparent via-[#FFFFFF]/60 to-transparent w-full h-full -translate-x-full animate-shimmer"></div>
-                          
-                          {/* Блик при наведении на карточку */}
                           <div className="absolute inset-0 bg-gradient-to-r from-transparent via-[#FEFEFE]/40 to-transparent w-full h-full -translate-x-full group-hover:translate-x-full transition-transform duration-700 ease-out transform -skew-x-12"></div>
-                          {/* Блик при наведении на кнопку */}
                           <div className="absolute inset-0 bg-gradient-to-r from-transparent via-[#FEFEFE]/50 to-transparent w-full h-full -translate-x-full group-hover/button:translate-x-full transition-transform duration-700 ease-out transform -skew-x-12"></div>
                         </button>
                         
-                        {/* Details Button */}
                         <button 
                           onClick={() => openModal(index + 3)}
                           className="w-full relative overflow-hidden bg-brand-white/20 backdrop-blur-md border border-brand-white/30 hover:bg-brand-white/90 text-brand-white hover:text-brand-black font-semibold py-3 px-4 rounded-medium transition-all duration-300 flex items-center justify-center gap-2 group/button shadow-lg"
                         >
                           <span className="relative z-10 text-sm">Подробнее</span>
                           <ArrowRight className="w-4 h-4 group-hover/button:translate-x-1 transition-transform duration-300" />
-                          
-                          {/* Блик при наведении на карточку */}
                           <div className="absolute inset-0 bg-gradient-to-r from-transparent via-brand-white/40 to-transparent w-full h-full -translate-x-full group-hover:translate-x-full transition-transform duration-700 ease-out transform -skew-x-12"></div>
-                          {/* Блик при наведении на кнопку */}
                           <div className="absolute inset-0 bg-gradient-to-r from-transparent via-brand-white/50 to-transparent w-full h-full -translate-x-full group-hover/button:translate-x-full transition-transform duration-700 ease-out transform -skew-x-12"></div>
                         </button>
                       </div>
@@ -700,42 +615,23 @@ const Programs = () => {
                   const relativeIndex = index - currentSlide;
                   const distance = Math.abs(relativeIndex);
                   
-                  // Динамическое масштабирование
                   let scale = 1;
-                  if (distance === 0) scale = 1; // Активная карточка
-                  else if (distance === 1) scale = 0.9; // Соседние
-                  else scale = 0.8; // Дальние
+                  if (distance === 0) scale = 1;
+                  else if (distance === 1) scale = 0.9;
+                  else scale = 0.8;
                   
-                  // Динамическая прозрачность
                   let opacity = 1;
                   if (distance === 0) opacity = 1;
                   else if (distance === 1) opacity = 0.7;
                   else opacity = 0.3;
                   
-                  // Размытие дальних карточек
                   const blur = distance > 1 ? 'blur(2px)' : 'blur(0px)';
-                  
-                  // Z-index для правильного наложения
                   const zIndex = 10 - distance;
                   
                   return (
                   <div 
                     key={`mobile-${actualIndex}-${index}`} 
                     className="w-full flex-shrink-0 px-2 transition-all duration-700 ease-out"
-                    onMouseEnter={(e) => {
-                      const video = e.currentTarget.querySelector('video');
-                      if (video) {
-                        video.currentTime = 0; // Начинаем с начала
-                        video.play();
-                      }
-                    }}
-                    onMouseLeave={(e) => {
-                      const video = e.currentTarget.querySelector('video');
-                      if (video) {
-                        video.pause();
-                        video.currentTime = 0; // Возвращаем к началу
-                      }
-                    }}
                     style={{
                       transform: `scale(${scale}) translateY(${distance > 0 ? distance * 10 : 0}px)`,
                       opacity,
@@ -757,22 +653,13 @@ const Programs = () => {
                       }}
                     >
                       <div className="aspect-[3/4.2] relative">
-                        {/* Video for mobile */}
-                        <video
-                          className="absolute inset-0 w-full h-full object-cover transition-opacity duration-300 pointer-events-none"
-                          muted
-                          playsInline
-                          loop
-                          preload="metadata"
-                          crossOrigin="anonymous"
-                          src={videoSrc[actualIndex]}
-                          onMouseEnter={(e) => {
-                            e.currentTarget.play();
-                          }}
-                          onMouseLeave={(e) => {
-                            e.currentTarget.pause();
-                            e.currentTarget.currentTime = 0;
-                          }}
+                        {/* Image for mobile */}
+                        <img
+                          className="absolute inset-0 w-full h-full object-cover transition-opacity duration-300 pointer-events-none select-none"
+                          src={imageSrc[actualIndex]}
+                          alt=""
+                          loading="lazy"
+                          draggable={false}
                         />
 
                         {/* Program features as badges - top-left corner */}
@@ -782,9 +669,7 @@ const Programs = () => {
                               return (
                                 <div key={idx} className="relative overflow-hidden bg-[#FEFEFE]/15 backdrop-blur-md border border-[#FEFEFE]/20 text-[#FEFEFE] px-3 py-1 rounded-small text-xs font-medium shadow-sm transition-all duration-700 ease-out cursor-pointer group/badge">
                                   <span className="relative z-10">{badge}</span>
-                                  {/* Блик при наведении на карточку */}
                                   <div className="absolute inset-0 bg-gradient-to-r from-transparent via-[#FEFEFE]/40 to-transparent w-full h-full -translate-x-full group-hover:translate-x-full transition-transform duration-700 ease-out transform -skew-x-12"></div>
-                                  {/* Блик при наведении на конкретный бейдж */}
                                   <div className="absolute inset-0 bg-gradient-to-r from-transparent via-[#FEFEFE]/40 to-transparent w-full h-full -translate-x-full group-hover/badge:translate-x-full transition-transform duration-700 ease-out transform -skew-x-12"></div>
                                 </div>
                               );
@@ -792,16 +677,13 @@ const Programs = () => {
                           </div>
                         </div>
 
-                        {/* Age badge - above title, left aligned */}
                         {/* Grouped content container */}
                         <div className="absolute bottom-0 left-0 right-0 p-6 space-y-4">
                           {/* Age badge */}
                           <div className="flex justify-start">
                             <div className="relative overflow-hidden bg-[#FEFEFE]/20 backdrop-blur-md border border-[#FEFEFE]/30 text-[#FEFEFE] px-4 py-2 rounded-medium text-sm font-semibold shadow-lg transition-all duration-700 ease-out cursor-pointer group/age">
                               <span className="relative z-10">{program.age}</span>
-                              {/* Блик при наведении на карточку */}
                               <div className="absolute inset-0 bg-gradient-to-r from-transparent via-[#FEFEFE]/50 to-transparent w-full h-full -translate-x-full group-hover:translate-x-full transition-transform duration-700 ease-out transform -skew-x-12"></div>
-                              {/* Блик при наведении на конкретный бейдж */}
                               <div className="absolute inset-0 bg-gradient-to-r from-transparent via-[#FEFEFE]/50 to-transparent w-full h-full -translate-x-full group-hover/age:translate-x-full transition-transform duration-700 ease-out transform -skew-x-12"></div>
                             </div>
                           </div>
@@ -816,11 +698,8 @@ const Programs = () => {
                            <span className="text-[#FEFEFE]">{program.price}</span>
                           </div>
                           
-                          {/* Button */}
-                          
                           {/* Buttons Row */}
                           <div className="flex gap-3">
-                            {/* Signup Button */}
                             <button 
                               onClick={() => openUnifiedSignupModal(program.title)}
                               className="flex-1 relative overflow-hidden bg-gradient-to-r from-brand-green via-accent-brightGreen to-brand-green text-brand-black font-bold py-3 px-4 rounded-medium transition-all duration-700 ease-out flex items-center justify-center gap-2 group/signup shadow-lg hover:shadow-2xl hover:shadow-brand-green/60 hover:scale-105"
@@ -830,31 +709,20 @@ const Programs = () => {
                             >
                               <span className="relative z-10 text-sm text-center">Записаться</span>
                               <Star className="w-4 h-4 group-hover/signup:rotate-180 group-hover/signup:scale-110 transition-all duration-500" />
-                              
-                              {/* Двойной контур эффект */}
                               <div className="absolute inset-0 rounded-medium border-2 border-[#FFFFFF]/30 pointer-events-none"></div>
                               <div className="absolute inset-1 rounded-medium border border-[#FFFFFF]/20 pointer-events-none"></div>
-                              
-                              {/* Постоянный блик */}
                               <div className="absolute inset-0 bg-gradient-to-r from-transparent via-[#FFFFFF]/60 to-transparent w-full h-full -translate-x-full animate-shimmer"></div>
-                              
-                              {/* Блик при наведении на карточку */}
                               <div className="absolute inset-0 bg-gradient-to-r from-transparent via-brand-white/40 to-transparent w-full h-full -translate-x-full group-hover:translate-x-full transition-transform duration-700 ease-out transform -skew-x-12"></div>
-                              {/* Блик при наведении на кнопку */}
                               <div className="absolute inset-0 bg-gradient-to-r from-transparent via-brand-white/50 to-transparent w-full h-full -translate-x-full group-hover/signup:translate-x-full transition-transform duration-700 ease-out transform -skew-x-12"></div>
                             </button>
                             
-                            {/* Details Button */}
                             <button 
                               onClick={() => openModal(actualIndex)}
                               className="flex-1 relative overflow-hidden bg-brand-white/20 backdrop-blur-md border border-brand-white/30 hover:bg-brand-white/90 text-brand-white hover:text-brand-black font-semibold py-3 px-4 rounded-medium transition-all duration-700 ease-out flex items-center justify-center gap-2 group/button shadow-lg"
                             >
                               <span className="relative z-10 text-sm text-center">Подробнее</span>
                               <ArrowRight className="w-4 h-4 group-hover/button:translate-x-1 transition-transform duration-700 ease-out" />
-                              
-                              {/* Блик при наведении на карточку */}
                               <div className="absolute inset-0 bg-gradient-to-r from-transparent via-brand-white/40 to-transparent w-full h-full -translate-x-full group-hover:translate-x-full transition-transform duration-700 ease-out transform -skew-x-12"></div>
-                              {/* Блик при наведении на кнопку */}
                               <div className="absolute inset-0 bg-gradient-to-r from-transparent via-brand-white/50 to-transparent w-full h-full -translate-x-full group-hover/button:translate-x-full transition-transform duration-700 ease-out transform -skew-x-12"></div>
                             </button>
                           </div>
