@@ -2,10 +2,11 @@ import React, { useState } from 'react';
 import { ArrowRight, X, User, Phone, Check, AlertCircle } from 'lucide-react';
 import sendLead from '../shared/sendLead';
 import { trackEvent } from '../shared/analytics';
+import UnifiedSignupModal from '../shared/UnifiedSignupModal';
 
 const Hero = () => {
   const [phoneInput, setPhoneInput] = useState('');
-  const [showModal, setShowModal] = useState(false);
+  const [showSignup, setShowSignup] = useState(false);
   const [modalData, setModalData] = useState({
     phone: '',
     name: '',
@@ -59,12 +60,12 @@ const Hero = () => {
       return;
     }
     setModalData({ ...modalData, phone: phoneInput });
-    setShowModal(true);
+    setShowSignup(true);
     document.body.style.overflow = 'hidden';
   };
 
   const closeModal = () => {
-    setShowModal(false);
+    setShowSignup(false);
     document.body.style.overflow = 'unset';
     setErrors({});
   };

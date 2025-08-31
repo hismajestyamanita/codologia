@@ -161,13 +161,13 @@ const UnifiedSignupModal: React.FC<UnifiedSignupModalProps> = ({
         childName: formData.childName,          // <-- добавили
         phone: formData.phone,
         program: formData.ageGroup,
-        source: "unified-signup-modal",
+        source,
       });
       
 
       trackEvent(ok ? "lead_success" : "lead_fail", { where: "UnifiedSignupModal" });
       
-      alert('Спасибо за заявку! Мы свяжемся с вами в течение рабочего дня для записи на бесплатное занятие.');
+      dispatchToast('');
       onClose();
     } catch (error) {
       alert('Произошла ошибка. Попробуйте еще раз или позвоните нам.');

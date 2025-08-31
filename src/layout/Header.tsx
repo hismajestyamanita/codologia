@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Code, Menu, X } from 'lucide-react';
 
 import UnifiedSignupModal from '../shared/UnifiedSignupModal';
+import GlobalToast from '../shared/GlobalToast'
 
 const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -61,6 +62,7 @@ const Header = () => {
 
   return (
     <>
+      <GlobalToast />
       <header className="w-full fixed top-0 z-50 transition-all duration-500 ease-in-out px-4 pt-4">
       <div className={`mx-auto transition-all duration-500 ease-in-out ${
         isScrolled ? 'max-w-4xl' : 'max-w-6xl'
@@ -182,7 +184,7 @@ const Header = () => {
 
       {/* Unified Signup Modal */}
       {showUnifiedSignupModal && (
-        <UnifiedSignupModal onClose={closeUnifiedSignupModal} />
+        <UnifiedSignupModal onClose={closeUnifiedSignupModal} source="signup-modal" />
       )}
     </>
   );
