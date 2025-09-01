@@ -62,12 +62,12 @@ const Hero = () => {
     }
     setModalData({ ...modalData, phone: phoneInput });
     setShowSignup(true);
-    document.body.style.overflow = 'hidden';
+    document.body.style.overflowY = 'hidden';
   };
 
   const closeModal = () => {
     setShowSignup(false);
-    document.body.style.overflow = 'unset';
+    document.body.style.overflowY = '';
     setErrors({});
   };
 
@@ -194,67 +194,68 @@ const Hero = () => {
   return (
     <>
       <section className="w-full bg-white relative overflow-hidden min-h-screen">
-        {/* Декоративные 3D объекты */}
+        {/* Декоративные 3D объекты (десктоп) */}
         <div className="absolute inset-0 pointer-events-none hidden md:block">
-          {/* Левый верхний объект */}
+          {/* Левый верхний — ракета */}
           <img
-            src="/assets/img/01-hero/03-hero-morgen.webp"
+            src="/assets/img/01-hero/02-hero-rocket.webp"
             alt=""
-            className="absolute -left-20 animate-breathe opacity-80 transform scale-125"
+            className="absolute animate-breathe opacity-80"
             style={{ 
               animationDuration: '6s',
               transform: 'translateZ(0)',
-              top: '130px',
-              width: '384px',
-              height: '384px'
+              top: '120px',
+              left: '-80px',
+              width: '360px',
+              height: '360px'
             }}
           />
-          
-          {/* Правый верхний объект */}
+
+          {/* Правый верхний — ПК */}
           <img
-            src="/assets/img/01-hero/02-hero-cube.webp"
+            src="/assets/img/01-hero/01-hero-pc.webp"
             alt=""
             className="absolute animate-breathe-reverse opacity-80"
             style={{ 
               animationDuration: '8s',
               transform: 'translateZ(0)',
-              top: '134px',
-              right: '-214px',
-             width: '450px',
-             height: '450px'
+              top: '110px',
+              right: '-140px',
+              width: '520px',
+              height: '520px'
             }}
           />
         </div>
 
-        {/* Декоративные 3D объекты - только мобильная версия */}
+        {/* Декоративные 3D объекты (мобильные) */}
         <div className="absolute inset-0 pointer-events-none md:hidden">
-          {/* Левый объект - сбоку от текста */}
+          {/* Левый — ракета */}
           <img
-            src="/assets/img/01-hero/03-hero-morgen.webp"
+            src="/assets/img/01-hero/02-hero-rocket.webp"
             alt=""
-            className="absolute animate-breathe opacity-60 transform scale-75"
+            className="absolute animate-breathe opacity-60"
             style={{ 
               animationDuration: '6s',
-              transform: 'translateZ(0) scale(0.75)',
+              transform: 'translateZ(0)',
               top: '200px',
-              left: '-150px',
-              width: '200px',
-              height: '200px'
+              left: '-40px',
+              width: '160px',
+              height: '160px'
             }}
           />
-          
-          {/* Правый объект - сбоку от текста */}
+
+          {/* Правый — ПК */}
           <img
-            src="/assets/img/01-hero/02-hero-cube.webp"
+            src="/assets/img/01-hero/01-hero-pc.webp"
             alt=""
-            className="absolute animate-breathe-reverse opacity-60 transform scale-75"
+            className="absolute animate-breathe-reverse opacity-60"
             style={{ 
               animationDuration: '8s',
-              transform: 'translateZ(0) scale(0.75)',
+              transform: 'translateZ(0)',
               top: '300px',
-              right: '-150px',
-              width: '200px',
-              height: '200px'
+              right: '-40px',
+              width: '180px',
+              height: '180px'
             }}
           />
         </div>

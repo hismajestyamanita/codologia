@@ -75,28 +75,13 @@ export const Footer = () => {
           </div>
         </div>
 
-        {/* Декоративные изображения */}
-        <div className="relative flex justify-between items-center py-8 pointer-events-none">
-          {/* Шахматы - слева */}
+        {/* Декоративное изображение — по центру */}
+        <div className="relative flex justify-center items-center py-8 pointer-events-none overflow-hidden">
           <img
-            src="/assets/img/09-footer/09-footer-chess.webp"
+            src="/assets/img/09-footer/09-footer-comp-01.webp"
             alt=""
-            className="w-144 h-144 md:w-144 md:h-144 opacity-30"
-            style={{ 
-              animationDuration: '4s',
-              transform: 'translateZ(0)'
-            }}
-          />
-          
-          {/* Карандаш - справа */}
-          <img
-            src="/assets/img/09-footer/09-footer-pencil.webp"
-            alt=""
-            className="hidden md:block w-144 h-144 md:w-144 md:h-144 opacity-30"
-            style={{
-              animationDuration: '5s',
-             transform: 'translateZ(0) rotate(-20deg)'
-            }}
+            className="opacity-60 w-[240px] h-auto md:w-[360px]"
+            style={{ transform: 'translateZ(0)' }}
           />
         </div>
 
