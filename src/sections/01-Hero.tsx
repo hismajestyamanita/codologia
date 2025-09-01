@@ -200,14 +200,15 @@ const Hero = () => {
           <img
             src="/assets/img/01-hero/02-hero-pc2.webp"
             alt=""
-            className="absolute animate-breathe opacity-80"
+            className="absolute animate-breathe"
             style={{ 
               animationDuration: '6s',
               transform: 'translateZ(0)',
-              top: '120px',
-              left: '-60px',
-              width: '380px',
-              height: '380px'
+              top: '220px',
+              left: '-80px',
+              width: '360px',
+              height: '360px',
+              opacity: 1
             }}
           />
 
@@ -215,14 +216,15 @@ const Hero = () => {
           <img
             src="/assets/img/01-hero/01-hero-pc.webp"
             alt=""
-            className="absolute animate-breathe-reverse opacity-80"
+            className="absolute animate-breathe-reverse"
             style={{ 
               animationDuration: '8s',
               transform: 'translateZ(0)',
-              top: '110px',
-              right: '-140px',
+              top: '220px',
+              right: '-120px',
               width: '520px',
-              height: '520px'
+              height: '520px',
+              opacity: 1
             }}
           />
         </div>
@@ -233,14 +235,15 @@ const Hero = () => {
           <img
             src="/assets/img/01-hero/02-hero-pc2.webp"
             alt=""
-            className="absolute animate-breathe opacity-60"
+            className="absolute animate-breathe"
             style={{ 
               animationDuration: '6s',
               transform: 'translateZ(0)',
-              top: '200px',
-              left: '-20px',
+              top: '280px',
+              left: '-24px',
               width: '180px',
-              height: '180px'
+              height: '180px',
+              opacity: 1
             }}
           />
 
@@ -248,14 +251,15 @@ const Hero = () => {
           <img
             src="/assets/img/01-hero/01-hero-pc.webp"
             alt=""
-            className="absolute animate-breathe-reverse opacity-60"
+            className="absolute animate-breathe-reverse"
             style={{ 
               animationDuration: '8s',
               transform: 'translateZ(0)',
-              top: '300px',
-              right: '-40px',
-              width: '180px',
-              height: '180px'
+              top: '360px',
+              right: '-32px',
+              width: '200px',
+              height: '200px',
+              opacity: 1
             }}
           />
         </div>

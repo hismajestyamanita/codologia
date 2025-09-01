@@ -75,13 +75,13 @@ export const Footer = () => {
           </div>
         </div>
 
-        {/* Декоративное изображение — по центру */}
-        <div className="relative flex justify-center items-center py-8 pointer-events-none overflow-hidden">
+        {/* Декоративное изображение — крупное, прижато к низу блока */}
+        <div className="relative pointer-events-none" style={{ minHeight: '320px' }}>
           <img
             src="/assets/img/09-footer/09-footer-comp-01.webp"
             alt=""
-            className="opacity-60 w-[80vw] max-w-[960px] h-auto md:w-[720px] md:max-w-none"
-            style={{ transform: 'translateZ(0)' }}
+            className="absolute bottom-0 left-1/2 -translate-x-1/2 opacity-60 w-[90vw] max-w-[1400px] h-auto md:w-[1100px]"
+            style={{ transform: 'translate(-50%, 0) translateZ(0)' }}
           />
         </div>
 
