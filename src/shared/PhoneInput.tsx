@@ -1,24 +1,23 @@
 import React from "react";
 
-type Props = {
-  value: string;
-  onChange: (digits: string) => void;
-  inputClassName?: string;
-  size?: "default" | "hero";
-  placeholder?: string;
-};
+interface PhoneInputProps {
+  value: string;                  // храним только 10 цифр
+  onChange: (val: string) => void;
+  placeholder?: string;           // пример: 960 123-45-67
+  inputClassName?: string;        // стиль внешней рамки/скругления/фокуса (как у остальных полей)
+  size?: "default" | "hero";      // hero — крупнее на первом экране
+}
 
-export default function PhoneInput({
+const PhoneInput: React.FC<PhoneInputProps> = ({
   value,
   onChange,
+  placeholder = "960 123-45-67",
   inputClassName = "",
   size = "default",
-  placeholder = "960 123-45-67",
-}: Props) {
-  const digits = (value || "").replace(/\D/g, "").slice(0, 10);
-
-  // формат "XXX XXX-XX-XX"
-  const fmt = (d: string) => {
+}) => {
+  // формат: 9601234567 -> 960 123-45-67
+  const fmt = (digits: string) => {
+    const d = (digits || "").replace(/\D/g, "").slice(0, 10);
     if (!d) return "";
     if (d.length <= 3) return d;
     if (d.length <= 6) return `${d.slice(0, 3)} ${d.slice(3)}`;
@@ -26,40 +25,43 @@ export default function PhoneInput({
     return `${d.slice(0, 3)} ${d.slice(3, 6)}-${d.slice(6, 8)}-${d.slice(8, 10)}`;
   };
 
-  const base =
-    size === "hero"
-      ? "h-12 text-base md:h-14 md:text-lg"
-      : "h-11 text-base";
+  const base = size === "hero"
+    ? "h-12 text-base md:h-14 md:text-lg"
+    : "h-11 text-base";
 
   return (
-    <div className="relative z-0 w-full flex items-center">
+    <div className="relative z-0 w-full">
+      {/* Префикс +7: без рамок, клики не перехватывает, шрифт наследует от инпута */}
       <span
-        className="text-current ml-4"
+        className="pointer-events-none absolute top-1/2 -translate-y-1/2 left-5 select-none text-current"
         style={{
           fontFamily: "inherit",
           fontSize: "inherit",
           lineHeight: "inherit",
           fontWeight: "inherit",
         }}
+        aria-hidden="true"
       >
-        +7&nbsp;
+        +7
       </span>
+
       <input
         type="tel"
         inputMode="numeric"
+        // ВАЖНО: НЕ ставим pattern, иначе HTML-валидация ругается на пробелы/дефисы.
         className={[
-          "w-full pr-4 outline-none",
+          "w-full pr-4",
           "placeholder-gray-400",
           base,
-          inputClassName,
+          inputClassName, // внешняя рамка/скругление/фокус — как у остальных полей
         ].join(" ")}
-        style={{ paddingLeft: 0 }}
-        value={fmt(digits)}
-        onChange={(e) =>
-          onChange(e.target.value.replace(/\D/g, "").slice(0, 10))
-        }
+        style={{ paddingLeft: "calc(1.25rem + 3ch)" }}
+        value={fmt(value)}
+        onChange={(e) => onChange(e.target.value.replace(/\D/g, "").slice(0, 10))}
         placeholder={placeholder}
       />
     </div>
   );
-}
+};
+
+export default PhoneInput;
