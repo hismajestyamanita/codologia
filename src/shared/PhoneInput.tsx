@@ -3,8 +3,8 @@ import React from "react";
 interface PhoneInputProps {
   value: string;                  // храним только 10 цифр
   onChange: (val: string) => void;
-  placeholder?: string;           // отображаем: 960 123-45-67
-  inputClassName?: string;        // сюда прилетает стиль ОТ ДРУГИХ ПОЛЕЙ ( внешняя рамка/скругление/фокус )
+  placeholder?: string;           // пример: 960 123-45-67
+  inputClassName?: string;        // стиль внешней рамки/скругления/фокуса (как у остальных полей)
   size?: "default" | "hero";      // hero — крупнее на первом экране
 }
 
@@ -25,15 +25,20 @@ const PhoneInput: React.FC<PhoneInputProps> = ({
     return `${d.slice(0, 3)} ${d.slice(3, 6)}-${d.slice(6, 8)}-${d.slice(8, 10)}`;
   };
 
+  // размеры шрифта инпута (как раньше)
   const base = size === "hero"
     ? "h-12 text-base md:h-14 md:text-lg"
     : "h-11 text-base";
 
+  // более компактный отступ слева, чтобы не было лишней дырки
+  const padLeft = size === "hero" ? "pl-12" : "pl-10";
+
   return (
     <div className="relative w-full">
-      {/* префикс +7: НЕ имеет бордера и не перехватывает клики */}
+      {/* фиксированный префикс +7 — без бордера, клики не перехватывает,
+         шрифт/высота/начертание наследуются от инпута */}
       <span
-        className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 select-none text-gray-700"
+        className="pointer-events-none absolute top-1/2 -translate-y-1/2 left-3 select-none text-current"
         style={{
           fontFamily: "inherit",
           fontSize: "inherit",
@@ -49,13 +54,12 @@ const PhoneInput: React.FC<PhoneInputProps> = ({
         type="tel"
         inputMode="numeric"
         pattern="[0-9]*"
-        // ВАЖНО: здесь НЕТ своих border/rounded/focus классов —
-        // внешний контур придёт из inputClassName, как у остальных полей
         className={[
-          "w-full pl-14 pr-4",
+          "w-full pr-4",
+          padLeft,              // компактный отступ под +7
           "placeholder-gray-400",
           base,
-          inputClassName, // <-- тянем внешний стиль поля формы
+          inputClassName,       // внешняя рамка/скругление/фокус — как у остальных полей
         ].join(" ")}
         value={fmt(value)}
         onChange={(e) => onChange(e.target.value.replace(/\D/g, "").slice(0, 10))}
