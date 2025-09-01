@@ -25,33 +25,22 @@ const PhoneInput: React.FC<PhoneInputProps> = ({
     return `${d.slice(0, 3)} ${d.slice(3, 6)}-${d.slice(6, 8)}-${d.slice(8, 10)}`;
   };
 
-  // Высота поля на уровне кнопки: делаем 56px (h-14) для hero и 48px (h-12) по умолчанию
   const base = size === "hero"
-    ? "h-14 text-base md:h-14 md:text-lg"
-    : "h-12 text-base";
+    ? "h-12 text-base md:h-14 md:text-lg"
+    : "h-11 text-base";
 
   return (
-    <div className="flex items-center w-full relative z-0">
-      <span
-        className="pl-4 pr-2 text-current select-none"
-        style={{
-          fontFamily: "inherit",
-          fontSize: "inherit",
-          lineHeight: "inherit",
-          fontWeight: "inherit",
-        }}
-        aria-hidden="true"
-      >
-        +7
-      </span>
+    <div className="relative z-0 w-full">
       <input
         type="tel"
         inputMode="numeric"
+        // ВАЖНО: НЕ ставим pattern, иначе HTML-валидация ругается на пробелы/дефисы.
         className={[
-          "flex-1 w-full pr-4",
+          "w-full pr-4",
           "placeholder-gray-400",
           base,
           inputClassName,
+          "pl-12 relative", // отступ под +7
         ].join(" ")}
         value={fmt(value)}
         onChange={(e) =>
@@ -59,6 +48,23 @@ const PhoneInput: React.FC<PhoneInputProps> = ({
         }
         placeholder={placeholder}
       />
+
+      {/* префикс +7 через псевдоэлемент */}
+      <style jsx>{`
+        input[type="tel"]::before {
+          content: "+7";
+          position: absolute;
+          left: 12px;
+          top: 50%;
+          transform: translateY(-50%);
+          color: inherit;
+          font-family: inherit;
+          font-size: inherit;
+          font-weight: inherit;
+          line-height: inherit;
+          pointer-events: none;
+        }
+      `}</style>
     </div>
   );
 };
