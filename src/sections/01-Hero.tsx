@@ -240,9 +240,9 @@ const Hero = () => {
               animationDuration: '6s',
               transform: 'translateZ(0)',
               top: '240px',
-              left: '-120px',
-              width: '140px',
-              height: '140px',
+              left: '-200px',
+              width: '120px',
+              height: '120px',
               opacity: 1
             }}
           />
@@ -256,9 +256,9 @@ const Hero = () => {
               animationDuration: '8s',
               transform: 'translateZ(0)',
               top: '260px',
-              right: '-120px',
-              width: '160px',
-              height: '160px',
+              right: '-200px',
+              width: '140px',
+              height: '140px',
               opacity: 1
             }}
           />
@@ -295,7 +295,7 @@ const Hero = () => {
 
                 <button
                   onClick={handleSubmitPhone}
-                  className="relative overflow-hidden px-5 md:px-8 py-4 rounded-full font-bold text-base md:text-lg flex items-center justify-center gap-2 group whitespace-nowrap text-brand-white transition-all duration-300 hover:scale-105"
+                  className="relative overflow-hidden px-5 md:px-8 h-14 py-0 rounded-full font-bold text-base md:text-lg flex items-center justify-center gap-2 group whitespace-nowrap text-brand-white transition-all duration-300 hover:scale-105"
                   style={{
                     background: 'rgba(61, 157, 242, 0.9)',
                     boxShadow: 'inset 0 2px 4px rgba(255,255,255,0.4), 0 0 10px rgba(61, 157, 242, 0.6)',
@@ -347,8 +347,8 @@ const Hero = () => {
             </div>
           </div>
 
-          {/* Блок с героем */}
-          <div className="mx-auto w-full max-w-[1200px] px-4 md:px-8" style={{ marginTop: '-500px' }}>
+          {/* Блок с героем — показываем только на мобилке */}
+          <div className="mx-auto w-full max-w-[1200px] px-4 md:px-8 md:hidden" style={{ marginTop: '-500px' }}>
             <div className="relative flex flex-col items-center">
               {/* Изображение ребенка */}
               <div className="relative mb-8">
