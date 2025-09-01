@@ -31,9 +31,9 @@ export default function PhoneInput({
 
   return (
     <div className="relative w-full">
-      {/* фиксированный префикс +7, стилизуем идентично тексту */}
+      {/* фиксированный префикс +7, использует стили инпута */}
       <span
-        className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-gray-900 font-normal text-base md:text-lg leading-none tracking-tight"
+        className={`pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 select-none ${inputClassName}`}
       >
         +7
       </span>
@@ -43,7 +43,7 @@ export default function PhoneInput({
         inputMode="numeric"
         pattern="[0-9]*"
         className={[
-          'w-full pl-14 pr-4', // увеличил отступ слева, чтобы цифры начинались после +7 без лишнего зазора
+          'w-full pl-12 pr-4',
           'placeholder-gray-400',
           base,
           inputClassName,
