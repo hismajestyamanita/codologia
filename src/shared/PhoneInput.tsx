@@ -31,9 +31,9 @@ const PhoneInput: React.FC<PhoneInputProps> = ({
     : "h-12 text-base";
 
   return (
-    <div className="relative z-0 w-full">
+    <div className="flex items-center w-full relative z-0">
       <span
-        className="pointer-events-none absolute top-1/2 -translate-y-1/2 left-5 select-none text-current"
+        className="pl-4 pr-2 text-current select-none"
         style={{
           fontFamily: "inherit",
           fontSize: "inherit",
@@ -44,21 +44,19 @@ const PhoneInput: React.FC<PhoneInputProps> = ({
       >
         +7
       </span>
-
-
       <input
         type="tel"
         inputMode="numeric"
-        // ВАЖНО: НЕ ставим pattern, иначе HTML-валидация ругается на пробелы/дефисы.
         className={[
-          "w-full pr-4",
+          "flex-1 w-full pr-4",
           "placeholder-gray-400",
           base,
-          inputClassName, // внешняя рамка/скругление/фокус — как у остальных полей
+          inputClassName,
         ].join(" ")}
-        style={{ paddingLeft: "calc(1.25rem + 2ch)" }}
         value={fmt(value)}
-        onChange={(e) => onChange(e.target.value.replace(/\D/g, "").slice(0, 10))}
+        onChange={(e) =>
+          onChange(e.target.value.replace(/\D/g, "").slice(0, 10))
+        }
         placeholder={placeholder}
       />
     </div>
