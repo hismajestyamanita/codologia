@@ -3,8 +3,8 @@ import React from "react";
 interface PhoneInputProps {
   value: string;                  // храним только 10 цифр
   onChange: (val: string) => void;
-  placeholder?: string;           // пример: 960 123-45-67
-  inputClassName?: string;        // стиль внешней рамки/скругления/фокуса (как у остальных полей)
+  placeholder?: string;           // пример плейсхолдера: 960 123-45-67
+  inputClassName?: string;        // сюда прилетает стиль внешней рамки/скругления/фокуса
   size?: "default" | "hero";      // hero — крупнее на первом экране
 }
 
@@ -25,18 +25,19 @@ const PhoneInput: React.FC<PhoneInputProps> = ({
     return `${d.slice(0, 3)} ${d.slice(3, 6)}-${d.slice(6, 8)}-${d.slice(8, 10)}`;
   };
 
-  // размеры шрифта инпута (как раньше)
+  // размеры шрифта — совпадают с обычными полями
   const base = size === "hero"
     ? "h-12 text-base md:h-14 md:text-lg"
     : "h-11 text-base";
 
-  // более компактный отступ слева, чтобы не было лишней дырки
-  const padLeft = size === "hero" ? "pl-12" : "pl-10";
+  // точный зазор как в «красивом» варианте:
+  // чуть ближе, чем было — без огромной дырки
+  const padLeftPx = size === "hero" ? 52 : 46; // hero: ~3.25rem, default: ~2.875rem
 
   return (
     <div className="relative w-full">
-      {/* фиксированный префикс +7 — без бордера, клики не перехватывает,
-         шрифт/высота/начертание наследуются от инпута */}
+      {/* фиксированный префикс +7: без рамок, не перехватывает клики,
+         тянет шрифт ИЗ ИНПУТА (baseline совпадает) */}
       <span
         className="pointer-events-none absolute top-1/2 -translate-y-1/2 left-3 select-none text-current"
         style={{
@@ -54,13 +55,15 @@ const PhoneInput: React.FC<PhoneInputProps> = ({
         type="tel"
         inputMode="numeric"
         pattern="[0-9]*"
+        // ВАЖНО: никакой своей внутренней рамки мы здесь не добавляем.
+        // Внешняя рамка/скругление/фокус приходят из inputClassName — как у остальных полей формы.
         className={[
           "w-full pr-4",
-          padLeft,              // компактный отступ под +7
           "placeholder-gray-400",
           base,
-          inputClassName,       // внешняя рамка/скругление/фокус — как у остальных полей
+          inputClassName,
         ].join(" ")}
+        style={{ paddingLeft: `${padLeftPx}px` }}   // тонкая подгонка расстояния между +7 и цифрами
         value={fmt(value)}
         onChange={(e) => onChange(e.target.value.replace(/\D/g, "").slice(0, 10))}
         placeholder={placeholder}
