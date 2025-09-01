@@ -3,6 +3,7 @@ import { ArrowRight, X, User, Phone, Check, AlertCircle } from 'lucide-react';
 import sendLead from '../shared/sendLead';
 import { trackEvent } from '../shared/analytics';
 import UnifiedSignupModal from '../shared/UnifiedSignupModal';
+import PhoneInput from '../shared/PhoneInput';
 
 const Hero = () => {
   const [phoneInput, setPhoneInput] = useState('');
@@ -278,13 +279,9 @@ const Hero = () => {
             <div className="max-w-2xl mx-auto mb-16">
               <div className="flex flex-col md:flex-row gap-4 items-center justify-center">
                 <div className="flex-1 max-w-md">
-                  <input
-                    type="tel"
+                  <PhoneInput
                     value={phoneInput}
-                    onChange={handlePhoneChange}
-                    placeholder="+7 (___) ___-__-__"
-                    className="w-full px-6 py-4 border-2 border-gray-300 rounded-full text-lg focus:ring-2 focus:ring-brand-blue focus:border-transparent transition-all relative z-20"
-                    style={{ pointerEvents: 'auto', position: 'relative' }}
+                    onChange={setPhoneInput}
                   />
                 </div>
                 <button

@@ -3,6 +3,7 @@ import { ArrowRight, ArrowLeft, CheckCircle, User, Calendar, Target, Gamepad2, C
 import { useScrollAnimation, useStaggeredAnimation } from '../shared/hooks/useScrollAnimation';
 import sendLead from '../shared/sendLead';
 import { trackEvent } from '../shared/analytics';
+import PhoneInput from '../shared/PhoneInput';  
 
 interface QuizAnswer {
   id: string;
@@ -152,7 +153,7 @@ const Quiz = () => {
     
     if (!formData.phone.trim()) {
       newErrors.phone = 'Пожалуйста, укажите номер телефона';
-    } else if (!/^[\+]?[0-9\s\-\(\)]{10,}$/.test(formData.phone.replace(/\s/g, ''))) {
+    } else if (formData.phone.replace(/\D/g, '').length !== 10) {
       newErrors.phone = 'Неправильный формат номера телефона';
     }
     
@@ -200,7 +201,7 @@ const Quiz = () => {
   
       const ok = await sendLead({
         name: contactData.name,
-        phone: contactData.phone,
+        phone: "+7${contactData.phone}",
         // age / childName тут обычно нет, ок
         message: summary,              // <-- ВСЕ ОТВЕТЫ КВИЗА
         source: "quiz-form",
@@ -233,7 +234,7 @@ const Quiz = () => {
         name: formData.name,
         childName: formData.childName,   // если есть — тоже увидим в ТГ
         age: formData.childAge,          // можно оставить, но дублируется с summary — по желанию
-        phone: formData.phone,
+        phone: "+7${contactData.phone}",
         message: summary,                // <-- ВСЕ ОТВЕТЫ КВИЗА
         source: "quiz-form",
       });
@@ -332,15 +333,11 @@ const Quiz = () => {
                   <label className="block text-sm font-medium text-gray-700 mb-2">
                     Телефон *
                   </label>
-                  <input
-                    type="tel"
-                    name="phone"
-                    required
+                  <PhoneInput
                     value={formData.phone}
-                    onChange={handleFormChange}
-                    className={getFieldClassName('phone')}
-                    placeholder="+7 (999) 123-45-67"
+                    onChange={(val) => setFormData({ ...formData, phone: val })}
                   />
+
                   {errors.phone && (
                     <div className="flex items-center gap-2 text-red-500 text-sm mt-1 animate-fade-in-up">
                       <AlertCircle className="w-4 h-4" />
@@ -731,7 +728,7 @@ const ContactForm: React.FC<ContactFormProps> = ({ onSubmit }) => {
     
     if (!formData.phone.trim()) {
       newErrors.phone = 'Пожалуйста, укажите номер телефона';
-    } else if (formData.phone.length < 18) {
+    } else if (formData.phone.replace(/\D/g, '').length !== 10) {
       newErrors.phone = 'Неправильный формат номера телефона';
     }
     
@@ -786,17 +783,11 @@ const ContactForm: React.FC<ContactFormProps> = ({ onSubmit }) => {
           <Phone className="w-4 h-4 text-[#3D9DF2]" />
           Номер телефона *
         </label>
-        <input
-          type="tel"
-          name="phone"
-          required
+        <PhoneInput
           value={formData.phone}
-          onChange={handleInputChange}
-          className={`w-full px-4 py-3 border rounded-small transition-all duration-300 focus:ring-2 focus:ring-[#3D9DF2] focus:border-transparent ${
-            errors.phone ? 'border-red-500 bg-red-50' : 'border-gray-300'
-          }`}
-          placeholder="+7 (___) ___-__-__"
+          onChange={(val) => setFormData({ ...formData, phone: val })}
         />
+
         {errors.phone && (
           <div className="flex items-center gap-2 text-red-500 text-sm mt-1">
             <AlertCircle className="w-4 h-4" />

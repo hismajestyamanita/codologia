@@ -3,6 +3,7 @@ import { X, User, Phone, ArrowRight, Check, AlertCircle } from 'lucide-react';
 import sendLead from '../shared/sendLead';
 import { trackEvent } from './analytics';
 import { dispatchToast } from '../shared/GlobalToast';
+import PhoneInput from './PhoneInput';
 
 interface UnifiedSignupModalProps {
   onClose: () => void;
@@ -112,7 +113,7 @@ const UnifiedSignupModal: React.FC<UnifiedSignupModalProps> = ({
     
     if (!formData.phone.trim()) {
       newErrors.phone = 'Пожалуйста, укажите номер телефона';
-    } else if (formData.phone.length < 18) {
+    } else if (formData.phone.replace(/\D/g, '').length !== 10) {
       newErrors.phone = 'Неправильный формат номера телефона';
     }
     
@@ -161,7 +162,7 @@ const UnifiedSignupModal: React.FC<UnifiedSignupModalProps> = ({
       const ok = await sendLead({
         parentName: formData.parentName,
         childName: formData.childName,
-        phone: formData.phone,
+        phone: "+7${formData.phone}",
         hp: honeypot,
         program: formData.ageGroup,
         source,
@@ -242,14 +243,9 @@ const UnifiedSignupModal: React.FC<UnifiedSignupModalProps> = ({
               <Phone className="w-4 h-4 text-[#3D9DF2]" />
               Номер телефона *
             </label>
-            <input
-              type="tel"
-              name="phone"
-              required
+            <PhoneInput
               value={formData.phone}
-              onChange={handleInputChange}
-              className={getFieldClassName('phone')}
-              placeholder="+7 (___) ___-__-__"
+              onChange={(val) => setFormData({ ...formData, phone: val })}
             />
             {errors.phone && (
               <div className="flex items-center gap-2 text-red-500 text-sm mt-1 animate-fade-in-up">

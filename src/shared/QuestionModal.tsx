@@ -3,6 +3,7 @@ import { X, User, Phone, ArrowRight, Check, AlertCircle } from 'lucide-react';
 import sendLead from '../shared/sendLead';
 import { trackEvent } from './analytics';
 import { dispatchToast } from '../shared/GlobalToast';
+import PhoneInput from './PhoneInput';
 
 interface QuestionModalProps {
   onClose: () => void;
@@ -55,7 +56,7 @@ const QuestionModal: React.FC<QuestionModalProps> = ({ onClose }) => {
     
     if (!formData.phone.trim()) {
       newErrors.phone = 'Пожалуйста, укажите номер телефона';
-    } else if (!/^[\+]?[0-9\s\-\(\)]{10,}$/.test(formData.phone.replace(/\s/g, ''))) {
+    } else if (formData.phone.replace(/\D/g, '').length !== 10) {
       newErrors.phone = 'Неправильный формат номера телефона';
     }
     
@@ -104,7 +105,7 @@ const QuestionModal: React.FC<QuestionModalProps> = ({ onClose }) => {
       // Отправляем лид в Telegram
       const ok = await sendLead({
         name: formData.name,
-        phone: formData.phone,
+        phone: "+7${formData.phone}",
         program: "Вопрос",
         hp: honeypot,
         source: "question-modal",
@@ -206,14 +207,9 @@ const QuestionModal: React.FC<QuestionModalProps> = ({ onClose }) => {
               <Phone className="w-4 h-4 text-[#3D9DF2]" />
               Номер телефона *
             </label>
-            <input
-              type="tel"
-              name="phone"
-              required
+            <PhoneInput
               value={formData.phone}
-              onChange={handleInputChange}
-              className={getFieldClassName('phone')}
-              placeholder="+7 (999) 123-45-67"
+              onChange={(val) => setFormData({ ...formData, phone: val })}
             />
             {errors.phone && (
               <div className="flex items-center gap-2 text-red-500 text-sm mt-1 animate-fade-in-up">
