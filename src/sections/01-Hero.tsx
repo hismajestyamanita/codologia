@@ -56,7 +56,7 @@ const Hero = () => {
   };
 
   const handleSubmitPhone = () => {
-    if (phoneInput.length < 18) {
+    if (phoneInput.length !== 10) {
       alert('Пожалуйста, введите корректный номер телефона');
       return;
     }
@@ -108,7 +108,7 @@ const Hero = () => {
       const ok = await sendLead({
         parentName: modalData.name,      // имя родителя
         childName: modalData.childName,  // ИМЯ РЕБЁНКА — ВАЖНО
-        phone: modalData.phone,
+        phone: '+7${modalData.phone}',
         program: modalData.product || "Не знаю, помогите подобрать",
         source: "hero-modal",
       });
@@ -278,12 +278,16 @@ const Hero = () => {
             {/* Форма ввода телефона */}
             <div className="max-w-2xl mx-auto mb-16">
               <div className="flex flex-col md:flex-row gap-4 items-center justify-center">
-                <div className="flex-1 max-w-md">
+                <div className="relative z-10 w-full max-w-[420px]">
                   <PhoneInput
                     value={phoneInput}
                     onChange={setPhoneInput}
+                    size="hero"
+                    placeholder="960 123-45-67"
+                    inputClassName="w-full px-4 border rounded-full"
                   />
                 </div>
+
                 <button
                   onClick={handleSubmitPhone}
                   className="relative overflow-hidden px-8 py-4 rounded-full font-bold text-lg flex items-center justify-center gap-2 group whitespace-nowrap text-brand-white transition-all duration-300 hover:scale-105"
