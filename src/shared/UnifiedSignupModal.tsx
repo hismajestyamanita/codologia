@@ -43,6 +43,8 @@ const UnifiedSignupModal: React.FC<UnifiedSignupModalProps> = ({
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [focusedField, setFocusedField] = useState<string | null>(null);
 
+  const [honeypot, setHoneypot] = useState('');
+
   // Маска для телефона
   const formatPhone = (value: string) => {
     const numbers = value.replace(/\D/g, '');
@@ -158,11 +160,13 @@ const UnifiedSignupModal: React.FC<UnifiedSignupModalProps> = ({
     try {
       const ok = await sendLead({
         parentName: formData.parentName,
-        childName: formData.childName,          // <-- добавили
+        childName: formData.childName,
         phone: formData.phone,
+        hp: honeypot,
         program: formData.ageGroup,
         source,
       });
+
       
 
       trackEvent(ok ? "lead_success" : "lead_fail", { where: "UnifiedSignupModal" });
@@ -221,6 +225,17 @@ const UnifiedSignupModal: React.FC<UnifiedSignupModalProps> = ({
 
         {/* Form */}
         <form onSubmit={handleSubmit} className="p-6 space-y-6">
+          {/* honeypot — скрытое поле для ботов */}
+          <input
+            tabIndex={-1}
+            autoComplete="off"
+            className="hidden"
+            name="company"
+            value={honeypot}
+            onChange={(e) => setHoneypot(e.target.value)}
+            aria-hidden="true"
+          />
+
           {/* Телефон */}
           <div>
             <label className="flex items-center gap-2 text-sm font-medium text-gray-700 mb-2">

@@ -11,7 +11,27 @@ export async function handler(event) {
 
   try {
     const data = JSON.parse(event.body || '{}');
-    const { name, parentName, childName, phone, message = '', source = 'site', text } = data;
+    const { name, parentName, childName, phone, message = '', source = 'site', text, hp } = data;
+
+    // Origin/Referer whitelist (если ALLOWED_ORIGINS задан)
+    const origin  = (event.headers.origin  || '').toLowerCase();
+    const referer = (event.headers.referer || '').toLowerCase();
+    const allowed = (process.env.ALLOWED_ORIGINS || process.env.ALLOWED_ORIGIN || '')
+      .toLowerCase().split(',').map(s => s.trim()).filter(Boolean);
+    if (allowed.length && !allowed.some(a => origin.startsWith(a) || referer.startsWith(a))) {
+      return { statusCode: 403, headers: cors, body: JSON.stringify({ ok: false, error: 'forbidden_origin' }) };
+    }
+
+    // honeypot — если поле заполнено, считаем ботом
+    if (typeof hp === 'string' && hp.trim() !== '') {
+      return { statusCode: 400, headers: cors, body: JSON.stringify({ ok: false, error: 'spam_honeypot' }) };
+    }
+
+    // простая валидация телефона
+    const phoneOk = typeof phone === 'string' && phone.replace(/[^\d]/g, '').length >= 10;
+    if (!phoneOk) {
+      return { statusCode: 422, headers: cors, body: JSON.stringify({ ok: false, error: 'invalid_phone' }) };
+    }
 
     // ВРЕМЕННЫЙ ЛОГ НА БЭКЕ: смотри в Netlify → Functions → notify-telegram → Logs
     console.log('notify-telegram body:', data);

@@ -19,6 +19,8 @@ const QuestionModal: React.FC<QuestionModalProps> = ({ onClose }) => {
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [focusedField, setFocusedField] = useState<string | null>(null);
 
+  const [honeypot, setHoneypot] = useState('');
+
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value, type } = e.target;
     
@@ -104,6 +106,7 @@ const QuestionModal: React.FC<QuestionModalProps> = ({ onClose }) => {
         name: formData.name,
         phone: formData.phone,
         program: "Вопрос",
+        hp: honeypot,
         source: "question-modal",
       });      
 
@@ -163,6 +166,17 @@ const QuestionModal: React.FC<QuestionModalProps> = ({ onClose }) => {
 
         {/* Form */}
         <form onSubmit={handleSubmit} className="p-6 space-y-6">
+          {/* honeypot — скрытое поле для ботов */}
+          <input
+            tabIndex={-1}
+            autoComplete="off"
+            className="hidden"
+            name="company"
+            value={honeypot}
+            onChange={(e) => setHoneypot(e.target.value)}
+            aria-hidden="true"
+          />
+          
           {/* Имя */}
           <div>
             <label className="flex items-center gap-2 text-sm font-medium text-gray-700 mb-2">

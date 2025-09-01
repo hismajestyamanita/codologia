@@ -11,6 +11,7 @@ interface LeadPayload {
   preferredDate?: string; // желаемая дата (если есть)
   preferredTime?: string; // желаемое время (если есть)
   source?: string;        // hero-modal | lead-form | signup-modal | unified-signup-modal | quiz-form | question-modal | ...
+  hp?: string;            // honeypot — скрытое поле для антиспама
 }
 
 function getFormType(source?: string) {
