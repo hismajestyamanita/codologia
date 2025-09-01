@@ -1,11 +1,11 @@
 import React from 'react';
 
 type Props = {
-  value: string;                      // храним только 10 цифр
-  onChange: (digits: string) => void; // наружу отдаём 10 цифр
-  inputClassName?: string;            // классы инпута (берём из твоей формы, чтобы стиль совпал)
-  size?: 'default' | 'hero';          // hero — крупнее на первом экране
-  placeholder?: string;               // дефолт: "960 123-45-67"
+  value: string;
+  onChange: (digits: string) => void;
+  inputClassName?: string;
+  size?: 'default' | 'hero';
+  placeholder?: string;
 };
 
 export default function PhoneInput({
@@ -17,7 +17,6 @@ export default function PhoneInput({
 }: Props) {
   const digits = (value || '').replace(/\D/g, '').slice(0, 10);
 
-  // Формат "XXX XXX-XX-XX"
   const fmt = (d: string) => {
     if (!d) return '';
     if (d.length <= 3) return d;
@@ -32,22 +31,19 @@ export default function PhoneInput({
 
   return (
     <div className="relative w-full">
-      {/* фиксированный префикс +7 — ЧЁРНЫЙ, клики не перехватывает */}
+      {/* фиксированный префикс +7, стилизуем идентично тексту */}
       <span
-        className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-gray-900 select-none"
-        aria-hidden="true"
+        className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-gray-900 font-normal text-base md:text-lg leading-none tracking-tight"
       >
         +7
       </span>
 
-      {/* ВАЖНО: никаких своих бордеров/скруглений/колец.
-          Всё приходит из inputClassName, чтобы поле выглядело как остальные. */}
       <input
         type="tel"
         inputMode="numeric"
         pattern="[0-9]*"
         className={[
-          'w-full pl-12 pr-4',
+          'w-full pl-14 pr-4', // увеличил отступ слева, чтобы цифры начинались после +7 без лишнего зазора
           'placeholder-gray-400',
           base,
           inputClassName,
