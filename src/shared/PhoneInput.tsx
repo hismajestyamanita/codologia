@@ -30,7 +30,7 @@ const PhoneInput: React.FC<PhoneInputProps> = ({
     : "h-11 text-base";
 
   // Отступ цифр под сдвинутый префикс +7
-  const padLeftPx = size === "hero" ? 48 : 42;
+  const padLeftPx = size === "hero" ? 36 : 32;
 
   return (
     <div className="relative z-0 w-full">
