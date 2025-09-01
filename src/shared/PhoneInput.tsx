@@ -32,10 +32,9 @@ export default function PhoneInput({
       : "h-11 text-base";
 
   return (
-    <div className="relative z-0 w-full">
-      {/* фиксированное +7 слева */}
+    <div className="relative z-0 w-full flex items-center">
       <span
-        className="pointer-events-none absolute top-1/2 -translate-y-1/2 left-4 text-current"
+        className="text-current ml-4"
         style={{
           fontFamily: "inherit",
           fontSize: "inherit",
@@ -43,20 +42,18 @@ export default function PhoneInput({
           fontWeight: "inherit",
         }}
       >
-        +7
+        +7&nbsp;
       </span>
-
       <input
         type="tel"
         inputMode="numeric"
         className={[
-          "relative z-0 w-full pr-4",
+          "w-full pr-4 outline-none",
           "placeholder-gray-400",
           base,
           inputClassName,
         ].join(" ")}
-        // сдвиг строго под ширину "+7 " → примерно 3ch
-        style={{ paddingLeft: "3.2ch" }}
+        style={{ paddingLeft: 0 }}
         value={fmt(digits)}
         onChange={(e) =>
           onChange(e.target.value.replace(/\D/g, "").slice(0, 10))
