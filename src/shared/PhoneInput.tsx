@@ -1,42 +1,57 @@
-import React from "react";
+import React, { useState, useEffect, useRef } from "react";
 
 interface PhoneInputProps {
-  value: string;                  // храним только 10 цифр
+  value: string;
   onChange: (val: string) => void;
-  placeholder?: string;           // пример: 960 123-45-67
-  inputClassName?: string;        // стиль внешней рамки/скругления/фокуса (как у остальных полей)
-  size?: "default" | "hero";      // hero — крупнее на первом экране
+  className?: string;
+  inputClassName?: string;
 }
 
 const PhoneInput: React.FC<PhoneInputProps> = ({
   value,
   onChange,
-  placeholder = "960 123-45-67",
+  className = "",
   inputClassName = "",
-  size = "default",
 }) => {
-  // формат: 9601234567 -> 960 123-45-67
-  const fmt = (digits: string) => {
-    const d = (digits || "").replace(/\D/g, "").slice(0, 10);
-    if (!d) return "";
-    if (d.length <= 3) return d;
-    if (d.length <= 6) return `${d.slice(0, 3)} ${d.slice(3)}`;
-    if (d.length <= 8) return `${d.slice(0, 3)} ${d.slice(3, 6)}-${d.slice(6)}`;
-    return `${d.slice(0, 3)} ${d.slice(3, 6)}-${d.slice(6, 8)}-${d.slice(8, 10)}`;
+  const [internalValue, setInternalValue] = useState(value.replace(/^\+7/, ""));
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    setInternalValue(value.replace(/^\+7/, ""));
+  }, [value]);
+
+  const formatPhone = (val: string) => {
+    const digits = val.replace(/\D/g, "").slice(0, 10);
+    let result = "";
+
+    if (digits.length > 0) {
+      result = digits.slice(0, 3);
+    }
+    if (digits.length >= 4) {
+      result += " " + digits.slice(3, 6);
+    }
+    if (digits.length >= 7) {
+      result += "-" + digits.slice(6, 8);
+    }
+    if (digits.length >= 9) {
+      result += "-" + digits.slice(8, 10);
+    }
+
+    return result;
   };
 
-  const base = size === "hero"
-    ? "h-12 text-base md:h-14 md:text-lg"
-    : "h-11 text-base";
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const raw = e.target.value.replace(/\D/g, "").slice(0, 10);
+    setInternalValue(raw);
+    onChange("+7" + raw);
+  };
 
-  // Отступ цифр под сдвинутый префикс +7
-  const padLeftPx = size === "hero" ? 64 : 58;
+  const displayValue = formatPhone(internalValue);
 
   return (
-    <div className="relative w-full">
-      {/* Префикс +7: без рамок, клики не перехватывает, шрифт наследует от инпута */}
+    <div className={`relative w-full ${className}`}>
       <span
-        className="pointer-events-none absolute top-1/2 -translate-y-1/2 left-5 select-none text-current"
+        className="pointer-events-none absolute top-1/2 -translate-y-1/2 left-5 select-none text-current z-0"
         style={{
           fontFamily: "inherit",
           fontSize: "inherit",
@@ -47,21 +62,20 @@ const PhoneInput: React.FC<PhoneInputProps> = ({
       >
         +7
       </span>
-
       <input
+        ref={inputRef}
         type="tel"
         inputMode="numeric"
-        // ВАЖНО: НЕ ставим pattern, иначе HTML-валидация ругается на пробелы/дефисы.
         className={[
-          "w-full pr-4",
+          "relative z-0 w-full pr-4",
           "placeholder-gray-400",
-          base,
-          inputClassName, // внешняя рамка/скругление/фокус — как у остальных полей
+          "appearance-none block rounded-xl border border-gray-300 focus:border-blue-500 focus:ring-blue-500 sm:text-base",
+          inputClassName,
         ].join(" ")}
-        style={{ paddingLeft: `${padLeftPx}px` }}
-        value={fmt(value)}
-        onChange={(e) => onChange(e.target.value.replace(/\D/g, "").slice(0, 10))}
-        placeholder={placeholder}
+        style={{ paddingLeft: "3rem" }}
+        value={displayValue}
+        onChange={handleChange}
+        placeholder="000 000-00-00"
       />
     </div>
   );
