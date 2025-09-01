@@ -32,13 +32,19 @@ const PhoneInput: React.FC<PhoneInputProps> = ({
 
   return (
     <div className="relative z-0 w-full">
-      {/* Префикс +7: без рамок, клики не перехватывает, шрифт наследует от инпута */}
       <span
-        className="pointer-events-none absolute inset-y-0 left-5 flex items-center text-gray-900"
+        className="pointer-events-none absolute top-1/2 -translate-y-1/2 left-5 select-none text-current"
+        style={{
+          fontFamily: "inherit",
+          fontSize: "inherit",
+          lineHeight: "inherit",
+          fontWeight: "inherit",
+        }}
         aria-hidden="true"
       >
         +7
       </span>
+
 
       <input
         type="tel"
