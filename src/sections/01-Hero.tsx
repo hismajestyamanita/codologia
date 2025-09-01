@@ -196,18 +196,18 @@ const Hero = () => {
       <section className="w-full bg-white relative overflow-hidden min-h-screen">
         {/* Декоративные 3D объекты (десктоп) */}
         <div className="absolute inset-0 pointer-events-none hidden md:block">
-          {/* Левый верхний — ракета */}
+          {/* Левый верхний — ПК v2 */}
           <img
-            src="/assets/img/01-hero/02-hero-rocket.webp"
+            src="/assets/img/01-hero/02-hero-pc2.webp"
             alt=""
             className="absolute animate-breathe opacity-80"
             style={{ 
               animationDuration: '6s',
               transform: 'translateZ(0)',
               top: '120px',
-              left: '-80px',
-              width: '360px',
-              height: '360px'
+              left: '-60px',
+              width: '380px',
+              height: '380px'
             }}
           />
 
@@ -229,18 +229,18 @@ const Hero = () => {
 
         {/* Декоративные 3D объекты (мобильные) */}
         <div className="absolute inset-0 pointer-events-none md:hidden">
-          {/* Левый — ракета */}
+          {/* Левый — ПК v2 */}
           <img
-            src="/assets/img/01-hero/02-hero-rocket.webp"
+            src="/assets/img/01-hero/02-hero-pc2.webp"
             alt=""
             className="absolute animate-breathe opacity-60"
             style={{ 
               animationDuration: '6s',
               transform: 'translateZ(0)',
               top: '200px',
-              left: '-40px',
-              width: '160px',
-              height: '160px'
+              left: '-20px',
+              width: '180px',
+              height: '180px'
             }}
           />
 
