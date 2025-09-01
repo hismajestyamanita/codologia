@@ -552,7 +552,7 @@ const Quiz = () => {
   }
 
   return (
-    <section id="quiz" className="w-full bg-white relative">
+    <section id="quiz" className="w-full bg-white relative overflow-x-hidden">
       <div className="mx-auto w-full max-w-[1200px] px-4 md:px-8 flex flex-col gap-6">
         <div className="text-center mb-12">
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-[#0F0F23] mb-3">
@@ -645,21 +645,19 @@ const Quiz = () => {
         </div>
 
         {/* Декоративные изображения под квизом */}
-        <div className="relative mt-8 pointer-events-none">
+        <div className="relative mt-8 pointer-events-none overflow-hidden">
           {/* Синий курсор - левый нижний угол */}
           <img
             src="/assets/img/07-quiz/07-quiz-arrow.webp"
             alt=""
-            className="absolute w-1/4 h-auto animate-breathe"
-            style={{ left: '-120px', bottom: '42px', transform: 'rotate(30deg)' }}
+            className="absolute w-1/4 h-auto animate-breathe bottom-[42px] left-0 sm:-left-28 rotate-[30deg]"
           />
           
           {/* Зеленый палец - правый нижний угол */}
           <img
             src="/assets/img/07-quiz/07-quiz-finger.webp"
             alt=""
-            className="absolute -bottom-6 w-1/4 h-auto animate-breathe-reverse"
-            style={{ right: '-120px', transform: 'rotate(-95deg)' }}
+            className="absolute -bottom-6 w-1/4 h-auto animate-breathe-reverse right-0 sm:-right-28 rotate-[-95deg]"
           />
         </div>
       </div>
