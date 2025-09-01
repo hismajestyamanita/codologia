@@ -4,8 +4,8 @@ interface PhoneInputProps {
   value: string;                  // храним только 10 цифр
   onChange: (val: string) => void;
   placeholder?: string;           // пример: 960 123-45-67
-  inputClassName?: string;        // стиль рамки/скругления
-  size?: "default" | "hero";
+  inputClassName?: string;        // стиль внешней рамки/скругления/фокуса (как у остальных полей)
+  size?: "default" | "hero";      // hero — крупнее на первом экране
 }
 
 const PhoneInput: React.FC<PhoneInputProps> = ({
@@ -15,6 +15,7 @@ const PhoneInput: React.FC<PhoneInputProps> = ({
   inputClassName = "",
   size = "default",
 }) => {
+  // формат: 9601234567 -> 960 123-45-67
   const fmt = (digits: string) => {
     const d = (digits || "").replace(/\D/g, "").slice(0, 10);
     if (!d) return "";
@@ -28,13 +29,14 @@ const PhoneInput: React.FC<PhoneInputProps> = ({
     ? "h-12 text-base md:h-14 md:text-lg"
     : "h-11 text-base";
 
-  // подгоняем зазор между +7 и цифрами (подвинул +7 вправо)
-  const padLeftPx = size === "hero" ? 60 : 54;
+  // Отступ цифр под сдвинутый префикс +7
+  const padLeftPx = size === "hero" ? 64 : 58;
 
   return (
     <div className="relative w-full">
+      {/* Префикс +7: без рамок, клики не перехватывает, шрифт наследует от инпута */}
       <span
-        className="pointer-events-none absolute top-1/2 -translate-y-1/2 left-4 select-none text-current"
+        className="pointer-events-none absolute top-1/2 -translate-y-1/2 left-5 select-none text-current"
         style={{
           fontFamily: "inherit",
           fontSize: "inherit",
@@ -49,12 +51,12 @@ const PhoneInput: React.FC<PhoneInputProps> = ({
       <input
         type="tel"
         inputMode="numeric"
-        pattern="[0-9]*"
+        // ВАЖНО: НЕ ставим pattern, иначе HTML-валидация ругается на пробелы/дефисы.
         className={[
           "w-full pr-4",
           "placeholder-gray-400",
           base,
-          inputClassName,
+          inputClassName, // внешняя рамка/скругление/фокус — как у остальных полей
         ].join(" ")}
         style={{ paddingLeft: `${padLeftPx}px` }}
         value={fmt(value)}
