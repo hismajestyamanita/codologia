@@ -80,7 +80,7 @@ export const Footer = () => {
           <img
             src="/assets/img/09-footer/09-footer-comp-01.webp"
             alt=""
-            className="absolute bottom-0 left-1/2 -translate-x-1/2 opacity-60 w-[160vw] max-w-[2200px] h-auto md:w-[1800px]"
+            className="absolute bottom-0 left-1/2 -translate-x-1/2 opacity-15 w-[160vw] max-w-[2200px] h-auto md:w-[1800px]"
             style={{ transform: 'translate(-50%, 0) translateZ(0)' }}
           />
         </div>

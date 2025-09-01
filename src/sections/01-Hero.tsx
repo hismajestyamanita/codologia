@@ -295,7 +295,7 @@ const Hero = () => {
 
                 <button
                   onClick={handleSubmitPhone}
-                  className="relative overflow-hidden px-8 py-4 rounded-full font-bold text-lg flex items-center justify-center gap-2 group whitespace-nowrap text-brand-white transition-all duration-300 hover:scale-105"
+                  className="relative overflow-hidden px-5 md:px-8 py-4 rounded-full font-bold text-base md:text-lg flex items-center justify-center gap-2 group whitespace-nowrap text-brand-white transition-all duration-300 hover:scale-105"
                   style={{
                     background: 'rgba(61, 157, 242, 0.9)',
                     boxShadow: 'inset 0 2px 4px rgba(255,255,255,0.4), 0 0 10px rgba(61, 157, 242, 0.6)',
@@ -314,7 +314,15 @@ const Hero = () => {
                     e.currentTarget.style.transform = 'scale(1.05)';
                   }}
                 >
-                  <span className="relative z-10">{isSubmitting ? 'Отправляем заявку...' : 'Записаться бесплатно'}</span>
+                  {/* Короткий текст на мобилке, длинный на десктопе */}
+                  {isSubmitting ? (
+                    <span className="relative z-10">Отправка...</span>
+                  ) : (
+                    <>
+                      <span className="relative z-10 md:hidden">Записаться</span>
+                      <span className="relative z-10 hidden md:inline">Записаться бесплатно</span>
+                    </>
+                  )}
                   <ArrowRight className="w-5 h-5" />
                   <div className="absolute inset-0 bg-gradient-to-r from-transparent via-[#FFFFFF]/60 to-transparent w-full h-full -translate-x-full animate-shimmer"></div>
                 </button>
