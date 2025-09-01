@@ -4,7 +4,7 @@ interface PhoneInputProps {
   value: string;                  // храним только 10 цифр
   onChange: (val: string) => void;
   placeholder?: string;           // пример: 960 123-45-67
-  inputClassName?: string;        // стиль внешней рамки/скругления/фокуса (как у остальных полей)
+  inputClassName?: string;        // СТИЛЬ РАМКИ/ФОКУСА — применяем к ОБОЛОЧКЕ
   size?: "default" | "hero";      // hero — крупнее на первом экране
 }
 
@@ -15,7 +15,7 @@ const PhoneInput: React.FC<PhoneInputProps> = ({
   inputClassName = "",
   size = "default",
 }) => {
-  // формат: 9601234567 -> 960 123-45-67
+  // 9601234567 -> 960 123-45-67
   const fmt = (digits: string) => {
     const d = (digits || "").replace(/\D/g, "").slice(0, 10);
     if (!d) return "";
@@ -25,46 +25,28 @@ const PhoneInput: React.FC<PhoneInputProps> = ({
     return `${d.slice(0, 3)} ${d.slice(3, 6)}-${d.slice(6, 8)}-${d.slice(8, 10)}`;
   };
 
-  const base = size === "hero"
-    ? "h-12 text-base md:h-14 md:text-lg"
-    : "h-11 text-base";
+  // высота/кегль берём на ОБОЛОЧКЕ, чтобы всё внутри совпадало
+  const shellBase =
+    size === "hero" ? "h-12 text-base md:h-14 md:text-lg" : "h-11 text-base";
 
   return (
-    <div className="relative z-0 w-full">
+    // ОБОЛОЧКА: сюда прилетит твой inputClassName (рамка, закругление, фокус)
+    <div className={["relative z-0 w-full flex items-center px-4", shellBase, inputClassName, "focus-within:ring-inherit"].join(" ")}>
+      {/* +7 — часть потока, один шрифт с цифрами */}
+      <span className="select-none text-current mr-[0.5ch]">+7</span>
+
+      {/* Сам инпут — прозрачный, без своей рамки, держит только текст */}
       <input
         type="tel"
         inputMode="numeric"
-        // ВАЖНО: НЕ ставим pattern, иначе HTML-валидация ругается на пробелы/дефисы.
         className={[
-          "w-full pr-4",
+          "flex-1 h-full bg-transparent outline-none border-0 focus:outline-none",
           "placeholder-gray-400",
-          base,
-          inputClassName,
-          "pl-12 relative", // отступ под +7
         ].join(" ")}
         value={fmt(value)}
-        onChange={(e) =>
-          onChange(e.target.value.replace(/\D/g, "").slice(0, 10))
-        }
+        onChange={(e) => onChange(e.target.value.replace(/\D/g, "").slice(0, 10))}
         placeholder={placeholder}
       />
-
-      {/* префикс +7 через псевдоэлемент */}
-      <style jsx>{`
-        input[type="tel"]::before {
-          content: "+7";
-          position: absolute;
-          left: 12px;
-          top: 50%;
-          transform: translateY(-50%);
-          color: inherit;
-          font-family: inherit;
-          font-size: inherit;
-          font-weight: inherit;
-          line-height: inherit;
-          pointer-events: none;
-        }
-      `}</style>
     </div>
   );
 };
