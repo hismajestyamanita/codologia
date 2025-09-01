@@ -25,9 +25,10 @@ const PhoneInput: React.FC<PhoneInputProps> = ({
     return `${d.slice(0, 3)} ${d.slice(3, 6)}-${d.slice(6, 8)}-${d.slice(8, 10)}`;
   };
 
+  // Высота поля на уровне кнопки: делаем 56px (h-14) для hero и 48px (h-12) по умолчанию
   const base = size === "hero"
-    ? "h-12 text-base md:h-14 md:text-lg"
-    : "h-11 text-base";
+    ? "h-14 text-base md:h-14 md:text-lg"
+    : "h-12 text-base";
 
   return (
     <div className="relative z-0 w-full">
@@ -36,7 +37,7 @@ const PhoneInput: React.FC<PhoneInputProps> = ({
         className="pointer-events-none absolute inset-y-0 left-3 flex items-center text-gray-900"
         aria-hidden="true"
       >
-        +7
+        +7{'\u00A0'}
       </span>
 
       <input
