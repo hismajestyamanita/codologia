@@ -34,10 +34,10 @@ const PhoneInput: React.FC<PhoneInputProps> = ({
     <div className="relative z-0 w-full">
       {/* Префикс +7: без рамок, клики не перехватывает, шрифт наследует от инпута */}
       <span
-        className="pointer-events-none absolute inset-y-0 left-3 flex items-center text-gray-900"
+        className="pointer-events-none absolute inset-y-0 left-5 flex items-center text-gray-900"
         aria-hidden="true"
       >
-        +7{'\u00A0'}
+        +7
       </span>
 
       <input
