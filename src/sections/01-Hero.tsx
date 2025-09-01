@@ -204,7 +204,7 @@ const Hero = () => {
             style={{ 
               animationDuration: '6s',
               transform: 'translateZ(0)',
-              top: '220px',
+              top: '340px',
               left: '-80px',
               width: '360px',
               height: '360px',
@@ -220,7 +220,7 @@ const Hero = () => {
             style={{ 
               animationDuration: '8s',
               transform: 'translateZ(0)',
-              top: '220px',
+              top: '340px',
               right: '-120px',
               width: '520px',
               height: '520px',

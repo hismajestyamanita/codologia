@@ -76,11 +76,11 @@ export const Footer = () => {
         </div>
 
         {/* Декоративное изображение — крупное, прижато к низу блока */}
-        <div className="relative pointer-events-none" style={{ minHeight: '320px' }}>
+        <div className="relative pointer-events-none" style={{ minHeight: '480px' }}>
           <img
             src="/assets/img/09-footer/09-footer-comp-01.webp"
             alt=""
-            className="absolute bottom-0 left-1/2 -translate-x-1/2 opacity-60 w-[90vw] max-w-[1400px] h-auto md:w-[1100px]"
+            className="absolute bottom-0 left-1/2 -translate-x-1/2 opacity-60 w-[160vw] max-w-[2200px] h-auto md:w-[1800px]"
             style={{ transform: 'translate(-50%, 0) translateZ(0)' }}
           />
         </div>
