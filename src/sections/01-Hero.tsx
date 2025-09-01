@@ -239,10 +239,10 @@ const Hero = () => {
             style={{ 
               animationDuration: '6s',
               transform: 'translateZ(0)',
-              top: '280px',
-              left: '-24px',
-              width: '180px',
-              height: '180px',
+              top: '240px',
+              left: '-120px',
+              width: '140px',
+              height: '140px',
               opacity: 1
             }}
           />
@@ -255,10 +255,10 @@ const Hero = () => {
             style={{ 
               animationDuration: '8s',
               transform: 'translateZ(0)',
-              top: '360px',
-              right: '-32px',
-              width: '200px',
-              height: '200px',
+              top: '260px',
+              right: '-120px',
+              width: '160px',
+              height: '160px',
               opacity: 1
             }}
           />
@@ -282,8 +282,8 @@ const Hero = () => {
 
             {/* Форма ввода телефона */}
             <div className="max-w-2xl mx-auto mb-16">
-              <div className="flex flex-col md:flex-row gap-4 items-center justify-center">
-                <div className="relative z-10 w-full max-w-[360px]">
+              <div className="flex flex-row items-center justify-center gap-3">
+                <div className="relative z-10 flex-1 min-w-0">
                   <PhoneInput
                     value={phoneInput}
                     onChange={setPhoneInput}
