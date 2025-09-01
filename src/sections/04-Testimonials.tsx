@@ -141,7 +141,7 @@ const Testimonials = () => {
             ref={greenRef}
             src="/assets/img/04-testimonials/04-testimonials-green-skobs.webp"
             alt=""
-            className="absolute -top-20 -left-20 w-96 h-96 pointer-events-none"
+            className="absolute pointer-events-none -top-8 -left-24 w-64 h-64 sm:-top-12 sm:-left-20 sm:w-80 sm:h-80 md:-top-20 md:-left-20 md:w-96 md:h-96"
             data-rotate="rotate(12deg)"
           />
           
@@ -150,7 +150,7 @@ const Testimonials = () => {
             ref={pinkRef}
             src="/assets/img/04-testimonials/04-testimonials-arrow-pink.webp"
             alt=""
-            className="absolute -top-16 -right-16 w-96 h-96 pointer-events-none"
+            className="absolute pointer-events-none -top-10 -right-24 w-64 h-64 sm:-top-14 sm:-right-20 sm:w-80 sm:h-80 md:-top-16 md:-right-16 md:w-96 md:h-96"
             data-rotate="rotate(-175deg)"
           />
           
@@ -275,7 +275,8 @@ const Testimonials = () => {
             <div 
               className="flex transition-transform duration-500 ease-in-out cursor-grab active:cursor-grabbing touch-pan-x"
               style={{ 
-                transform: `translateX(calc(50vw - 160px - ${currentIndex * 320}px))`
+                /* Центрируем карточку с учётом фактической ширины элемента: w-80 (320px) + px-4*2 (16px) = 336px */
+                transform: `translateX(calc(50vw - 168px - ${currentIndex * 336}px))`
               }}
               onTouchStart={(e) => {
                 const touch = e.touches[0];

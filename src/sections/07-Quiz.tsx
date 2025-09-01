@@ -644,20 +644,22 @@ const Quiz = () => {
           </p>
         </div>
 
-        {/* Декоративные изображения под квизом */}
-        <div className="relative mt-8 pointer-events-none overflow-hidden">
+        {/* Декоративные изображения под квизом — только на десктопе */}
+        <div className="relative mt-8 pointer-events-none overflow-hidden hidden md:block">
           {/* Синий курсор - левый нижний угол */}
           <img
             src="/assets/img/07-quiz/07-quiz-arrow.webp"
             alt=""
-            className="absolute w-1/4 h-auto animate-breathe bottom-[42px] left-0 sm:-left-28 rotate-[30deg]"
+            className="absolute w-1/4 h-auto animate-breathe"
+            style={{ left: '-120px', bottom: '42px', transform: 'rotate(30deg)' }}
           />
           
           {/* Зеленый палец - правый нижний угол */}
           <img
             src="/assets/img/07-quiz/07-quiz-finger.webp"
             alt=""
-            className="absolute -bottom-6 w-1/4 h-auto animate-breathe-reverse right-0 sm:-right-28 rotate-[-95deg]"
+            className="absolute w-1/4 h-auto animate-breathe-reverse"
+            style={{ right: '-120px', bottom: '-24px', transform: 'rotate(-95deg)' }}
           />
         </div>
       </div>
