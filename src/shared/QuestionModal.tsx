@@ -152,7 +152,7 @@ const QuestionModal: React.FC<QuestionModalProps> = ({ onClose }) => {
         className="bg-[#FEFEFE] rounded-medium max-w-md w-full max-h-[90vh] overflow-y-auto shadow-2xl animate-fade-in-up"
       >
         {/* Header */}
-        <div className="sticky top-0 bg-[#FEFEFE] border-b border-gray-200 p-6 flex items-center justify-between rounded-t-medium">
+        <div className="sticky top-0 z-20 bg-[#FEFEFE] border-b border-gray-200 p-6 flex items-center justify-between rounded-t-medium">
           <div>
             <h2 className="text-2xl font-bold text-[#0F0F23]">Задать вопрос</h2>
             <p className="text-sm text-gray-600 mt-1">Скажите, как с вами связаться, и мы ответим на любой интересующий вас вопрос</p>
@@ -166,7 +166,7 @@ const QuestionModal: React.FC<QuestionModalProps> = ({ onClose }) => {
         </div>
 
         {/* Form */}
-        <form onSubmit={handleSubmit} className="p-6 space-y-6">
+        <form onSubmit={handleSubmit} className="relative z-0 p-6 space-y-6">
           {/* honeypot — скрытое поле для ботов */}
           <input
             tabIndex={-1}

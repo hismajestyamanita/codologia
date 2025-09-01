@@ -211,7 +211,7 @@ const UnifiedSignupModal: React.FC<UnifiedSignupModalProps> = ({
         className="bg-[#FEFEFE] rounded-medium max-w-md w-full max-h-[90vh] overflow-y-auto shadow-2xl animate-fade-in-up"
       >
         {/* Header */}
-        <div className="sticky top-0 bg-[#FEFEFE] border-b border-gray-200 p-6 flex items-center justify-between rounded-t-medium">
+        <div className="sticky top-0 z-20 bg-[#FEFEFE] border-b border-gray-200 p-6 flex items-center justify-between rounded-t-medium">
           <div>
             <h2 className="text-2xl font-bold text-[#0F0F23]">Записаться на занятие</h2>
             <p className="text-sm text-gray-600 mt-1">Заполните форму, и мы свяжемся с вами в течение рабочего дня</p>
@@ -225,7 +225,7 @@ const UnifiedSignupModal: React.FC<UnifiedSignupModalProps> = ({
         </div>
 
         {/* Form */}
-        <form onSubmit={handleSubmit} className="p-6 space-y-6">
+        <form onSubmit={handleSubmit} className="relative z-0 p-6 space-y-6">
           {/* honeypot — скрытое поле для ботов */}
           <input
             tabIndex={-1}

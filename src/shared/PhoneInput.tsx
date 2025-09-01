@@ -33,7 +33,7 @@ const PhoneInput: React.FC<PhoneInputProps> = ({
   const padLeftPx = size === "hero" ? 64 : 58;
 
   return (
-    <div className="relative w-full">
+    <div className="relative z-0 w-full">
       {/* Префикс +7: без рамок, клики не перехватывает, шрифт наследует от инпута */}
       <span
         className="pointer-events-none absolute top-1/2 -translate-y-1/2 left-5 select-none text-current"
