@@ -31,9 +31,9 @@ export default function PhoneInput({
 
   return (
     <div className="relative w-full">
-      {/* фиксированный префикс +7, использует стили инпута */}
+      {/* фиксированный префикс +7 */}
       <span
-        className={`pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 select-none ${inputClassName}`}
+        className={`absolute left-4 top-1/2 -translate-y-1/2 select-none text-gray-900 ${inputClassName}`}
       >
         +7
       </span>
@@ -43,13 +43,15 @@ export default function PhoneInput({
         inputMode="numeric"
         pattern="[0-9]*"
         className={[
-          'w-full pl-12 pr-4',
+          'w-full pl-16 pr-4',
           'placeholder-gray-400',
           base,
           inputClassName,
         ].join(' ')}
         value={fmt(digits)}
-        onChange={(e) => onChange(e.target.value.replace(/\D/g, '').slice(0, 10))}
+        onChange={(e) =>
+          onChange(e.target.value.replace(/\D/g, '').slice(0, 10))
+        }
         placeholder={placeholder}
       />
     </div>
