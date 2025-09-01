@@ -55,7 +55,7 @@ const PhoneInput: React.FC<PhoneInputProps> = ({
           base,
           inputClassName, // внешняя рамка/скругление/фокус — как у остальных полей
         ].join(" ")}
-        style={{ paddingLeft: "calc(1.25rem + 3ch)" }}
+        style={{ paddingLeft: "calc(1.25rem + 2ch)" }}
         value={fmt(value)}
         onChange={(e) => onChange(e.target.value.replace(/\D/g, "").slice(0, 10))}
         placeholder={placeholder}
