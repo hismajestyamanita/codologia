@@ -194,39 +194,41 @@ const Hero = () => {
   return (
     <>
       <section className="w-full bg-white relative overflow-hidden min-h-screen">
-        {/* Декоративные 3D объекты (десктоп) */}
-        <div className="absolute inset-0 pointer-events-none hidden md:block">
-          {/* Левый верхний — ПК v2 */}
-          <img
-            src="/assets/img/01-hero/02-hero-pc2.webp"
-            alt=""
-            className="absolute animate-breathe"
-            style={{ 
-              animationDuration: '6s',
-              transform: 'translateZ(0)',
-              top: '340px',
-              left: '-80px',
-              width: '360px',
-              height: '360px',
-              opacity: 1
-            }}
-          />
+        {/* Декоративные 3D объекты (десктоп): привязаны к краям контейнера */}
+        <div className="absolute inset-0 pointer-events-none hidden md:block z-[1]">
+          <div className="mx-auto w-full max-w-[1200px] px-4 md:px-8 relative">
+            {/* Левый — ПК v2 у левого края контейнера */}
+            <img
+              src="/assets/img/01-hero/02-hero-pc2.webp"
+              alt=""
+              className="absolute animate-breathe"
+              style={{ 
+                animationDuration: '6s',
+                transform: 'translateZ(0)',
+                top: '340px',
+                left: '-60px',
+                width: '360px',
+                height: '360px',
+                opacity: 1
+              }}
+            />
 
-          {/* Правый верхний — ПК */}
-          <img
-            src="/assets/img/01-hero/01-hero-pc.webp"
-            alt=""
-            className="absolute animate-breathe-reverse"
-            style={{ 
-              animationDuration: '8s',
-              transform: 'translateZ(0)',
-              top: '340px',
-              right: '-120px',
-              width: '520px',
-              height: '520px',
-              opacity: 1
-            }}
-          />
+            {/* Правый — ПК у правого края контейнера */}
+            <img
+              src="/assets/img/01-hero/01-hero-pc.webp"
+              alt=""
+              className="absolute animate-breathe-reverse"
+              style={{ 
+                animationDuration: '8s',
+                transform: 'translateZ(0)',
+                top: '340px',
+                right: '-60px',
+                width: '520px',
+                height: '520px',
+                opacity: 1
+              }}
+            />
+          </div>
         </div>
 
         {/* Декоративные 3D объекты (мобильные) */}
@@ -330,8 +332,8 @@ const Hero = () => {
             </div>
           </div>
 
-          {/* Бегущая строка с УТП */}
-          <div className="w-full overflow-hidden py-4 mb-16">
+          {/* Бегущая строка с УТП (ниже, под декоративными картинками) */}
+          <div className="w-full overflow-hidden py-4 mb-16 relative z-0">
             <div className="flex animate-carousel-smooth whitespace-nowrap">
               {/* Дублируем массив для бесконечной прокрутки */}
               {[...utpItems, ...utpItems, ...utpItems].map((item, index) => (
@@ -347,7 +349,7 @@ const Hero = () => {
             </div>
           </div>
 
-          {/* Блок с героем — показываем только на мобилке */}
+          {/* Блок с героем — на мобилке как раньше */}
           <div className="mx-auto w-full max-w-[1200px] px-4 md:px-8 md:hidden" style={{ marginTop: '-500px' }}>
             <div className="relative flex flex-col items-center">
               {/* Изображение ребенка */}
@@ -384,6 +386,36 @@ const Hero = () => {
                     <div className="absolute inset-0 bg-gradient-to-r from-transparent via-brand-white/30 to-transparent w-full h-full -translate-x-full animate-shimmer"></div>
                   </button>
                 </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Только для десктопа: кнопка "Подобрать программу" без изображения */}
+          <div className="hidden md:block">
+            <div className="mx-auto w-full max-w-[1200px] px-4 md:px-8">
+              <div className="flex justify-center mt-8">
+                <button
+                  onClick={scrollToQuiz}
+                  className="relative overflow-hidden text-brand-black px-8 py-4 rounded-full transition-all duration-300 font-medium border border-brand-white/20 shadow-lg"
+                  style={{
+                    background: 'linear-gradient(to right, #90EE90, #7CF23D, #90EE90)',
+                    boxShadow: '0 0 30px rgb(124 242 61), 0 0 60px rgb(124 242 61 / 60%), 0 0 100px rgb(124 242 61 / 40%)',
+                    filter: 'brightness(1)'
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.filter = 'brightness(1.5) saturate(1.3)';
+                    e.currentTarget.style.boxShadow = '0 0 60px rgb(124 242 61), 0 0 100px rgb(124 242 61 / 80%), 0 0 150px rgb(124 242 61 / 60%), 0 0 200px rgb(124 242 61 / 40%)';
+                    e.currentTarget.style.transform = 'scale(1.05)';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.filter = 'brightness(1)';
+                    e.currentTarget.style.boxShadow = '0 0 30px rgb(124 242 61), 0 0 60px rgb(124 242 61 / 60%), 0 0 100px rgb(124 242 61 / 40%)';
+                    e.currentTarget.style.transform = 'scale(1)';
+                  }}
+                >
+                  <span className="relative z-10">Подобрать программу</span>
+                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-brand-white/30 to-transparent w-full h-full -translate-x-full animate-shimmer"></div>
+                </button>
               </div>
             </div>
           </div>
