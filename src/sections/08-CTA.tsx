@@ -13,12 +13,12 @@ const CTA = () => {
 
   const openUnifiedSignupModal = () => {
     setShowUnifiedSignupModal(true);
-    document.body.style.overflow = 'hidden';
+    document.body.style.overflowY = 'hidden';
   };
 
   const closeUnifiedSignupModal = () => {
     setShowUnifiedSignupModal(false);
-    document.body.style.overflow = 'unset';
+    document.body.style.overflowY = '';
   };
 
   return (

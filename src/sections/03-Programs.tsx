@@ -244,33 +244,33 @@ const Programs = () => {
 
   const openModal = (index: number) => {
     setSelectedProgram(index);
-    document.body.style.overflow = 'hidden';
+    document.body.style.overflowY = 'hidden';
   };
 
   const closeModal = () => {
     setSelectedProgram(null);
-    document.body.style.overflow = 'unset';
+    document.body.style.overflowY = '';
   };
 
   const openUnifiedSignupModal = (programTitle?: string) => {
     setSelectedProgramForSignup(programTitle || '');
     setShowUnifiedSignupModal(true);
-    document.body.style.overflow = 'hidden';
+    document.body.style.overflowY = 'hidden';
   };
 
   const closeUnifiedSignupModal = () => {
     setShowUnifiedSignupModal(false);
-    document.body.style.overflow = 'unset';
+    document.body.style.overflowY = '';
   };
 
   const openQuestionModal = () => {
     setShowQuestionModal(true);
-    document.body.style.overflow = 'hidden';
+    document.body.style.overflowY = 'hidden';
   };
 
   const closeQuestionModal = () => {
     setShowQuestionModal(false);
-    document.body.style.overflow = 'unset';
+    document.body.style.overflowY = '';
   };
 
   // Navigation functions
