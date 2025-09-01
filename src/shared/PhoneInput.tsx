@@ -1,39 +1,34 @@
-import React from 'react';
+import React from "react";
 
-type Props = {
+interface PhoneInputProps {
   value: string;
-  onChange: (digits: string) => void;
-  inputClassName?: string;
-  size?: 'default' | 'hero';
+  onChange: (val: string) => void;
   placeholder?: string;
-};
+  inputClassName?: string;
+}
 
-export default function PhoneInput({
+const PhoneInput: React.FC<PhoneInputProps> = ({
   value,
   onChange,
-  inputClassName = '',
-  size = 'default',
-  placeholder = '960 123-45-67',
-}: Props) {
-  const digits = (value || '').replace(/\D/g, '').slice(0, 10);
-
-  const fmt = (d: string) => {
-    if (!d) return '';
-    if (d.length <= 3) return d;
-    if (d.length <= 6) return `${d.slice(0, 3)} ${d.slice(3)}`;
-    if (d.length <= 8) return `${d.slice(0, 3)} ${d.slice(3, 6)}-${d.slice(6)}`;
-    return `${d.slice(0, 3)} ${d.slice(3, 6)}-${d.slice(6, 8)}-${d.slice(8, 10)}`;
+  placeholder = "(___) ___-__-__",
+  inputClassName = "",
+}) => {
+  // форматирование телефона: 9601234567 → 960 123-45-67
+  const fmt = (val: string) => {
+    const digits = val.replace(/\D/g, "").slice(0, 10);
+    const parts = [];
+    if (digits.length > 0) parts.push(digits.substring(0, 3));
+    if (digits.length > 3) parts.push(digits.substring(3, 6));
+    if (digits.length > 6) parts.push(digits.substring(6, 8));
+    if (digits.length > 8) parts.push(digits.substring(8, 10));
+    return parts.join(parts.length > 2 ? "-" : " ");
   };
-
-  const base = size === 'hero'
-    ? 'h-12 text-base md:h-14 md:text-lg'
-    : 'h-11 text-base';
 
   return (
     <div className="relative w-full">
-      {/* фиксированный префикс +7 */}
+      {/* Префикс +7 без рамки, без кликабельности */}
       <span
-        className={`absolute left-4 top-1/2 -translate-y-1/2 select-none text-gray-900 ${inputClassName}`}
+        className={`absolute left-4 top-1/2 -translate-y-1/2 select-none text-gray-700 ${inputClassName}`}
       >
         +7
       </span>
@@ -43,17 +38,21 @@ export default function PhoneInput({
         inputMode="numeric"
         pattern="[0-9]*"
         className={[
-          'w-full pl-16 pr-4',
-          'placeholder-gray-400',
-          base,
+          "w-full pl-14 pr-4",
+          "placeholder-gray-400",
+          "border rounded-lg",
+          "focus:ring-2 focus:ring-green-400 focus:outline-none",
+          "transition-colors",
           inputClassName,
-        ].join(' ')}
-        value={fmt(digits)}
+        ].join(" ")}
+        value={fmt(value)}
         onChange={(e) =>
-          onChange(e.target.value.replace(/\D/g, '').slice(0, 10))
+          onChange(e.target.value.replace(/\D/g, "").slice(0, 10))
         }
         placeholder={placeholder}
       />
     </div>
   );
-}
+};
+
+export default PhoneInput;
