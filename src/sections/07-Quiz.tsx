@@ -336,7 +336,10 @@ const Quiz = () => {
                   <PhoneInput
                     value={formData.phone}
                     onChange={(val) => setFormData({ ...formData, phone: val })}
+                    inputClassName={getFieldClassName('phone')}
+                    placeholder="960 123-45-67"
                   />
+
 
                   {errors.phone && (
                     <div className="flex items-center gap-2 text-red-500 text-sm mt-1 animate-fade-in-up">
@@ -786,6 +789,8 @@ const ContactForm: React.FC<ContactFormProps> = ({ onSubmit }) => {
         <PhoneInput
           value={formData.phone}
           onChange={(val) => setFormData({ ...formData, phone: val })}
+          inputClassName={`w-full px-4 py-3 border rounded-small ...`}
+          placeholder="960 123-45-67"
         />
 
         {errors.phone && (

@@ -1,11 +1,11 @@
 import React from 'react';
 
 type Props = {
-  value: string;                      // только 10 цифр
+  value: string;                      // храним только 10 цифр
   onChange: (digits: string) => void; // наружу отдаём 10 цифр
-  inputClassName?: string;            // классы инпута (берём из getFieldClassName, чтобы совпасть со стилем других полей)
-  size?: 'default' | 'hero';          // hero — крупнее
-  placeholder?: string;               // по умолчанию "960 123-45-67"
+  inputClassName?: string;            // классы инпута (берём из твоей формы, чтобы стиль совпал)
+  size?: 'default' | 'hero';          // hero — крупнее на первом экране
+  placeholder?: string;               // дефолт: "960 123-45-67"
 };
 
 export default function PhoneInput({
@@ -27,22 +27,28 @@ export default function PhoneInput({
   };
 
   const base = size === 'hero'
-    ? 'h-12 text-base md:h-14 md:text-lg'   // крупнее для Hero
-    : 'h-11 text-base';                     // как у остальных полей
+    ? 'h-12 text-base md:h-14 md:text-lg'
+    : 'h-11 text-base';
 
   return (
     <div className="relative w-full">
-      {/* фиксированный префикс +7, не перехватывает клики */}
-      <span className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-gray-500 select-none">+7</span>
+      {/* фиксированный префикс +7 — ЧЁРНЫЙ, клики не перехватывает */}
+      <span
+        className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-gray-900 select-none"
+        aria-hidden="true"
+      >
+        +7
+      </span>
+
+      {/* ВАЖНО: никаких своих бордеров/скруглений/колец.
+          Всё приходит из inputClassName, чтобы поле выглядело как остальные. */}
       <input
         type="tel"
         inputMode="numeric"
         pattern="[0-9]*"
         className={[
-          // чтобы выглядеть ТОЧНО как другие поля — классы инпута передаём снаружи
-          'w-full pl-12 pr-4 rounded-small border outline-none',
+          'w-full pl-12 pr-4',
           'placeholder-gray-400',
-          'focus:ring-2 focus:ring-green-300 focus:border-green-400',
           base,
           inputClassName,
         ].join(' ')}
