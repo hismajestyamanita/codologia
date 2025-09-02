@@ -1,13 +1,12 @@
 import { RefObject, useEffect } from 'react';
 
-type T = { el: RefObject<HTMLElement>, speed: number, base?: number };
+type T = { el: RefObject<HTMLElement>; speed: number; base?: number };
 
 export function useParallax(targets: T[], container?: RefObject<HTMLElement>) {
   useEffect(() => {
     const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    const isMobile = window.matchMedia('(max-width: 767px)').matches;
-
-    if (prefersReduced || isMobile) return; // без параллакса на мобиле/при reduce-motion
+    // Enable parallax on all viewports; only disable for reduced motion
+    if (prefersReduced) return;
 
     let raf = 0;
     const run = () => {
@@ -19,8 +18,7 @@ export function useParallax(targets: T[], container?: RefObject<HTMLElement>) {
           const node = el.current as HTMLElement | null;
           if (!node) return;
 
-          // Сохраняем поворот из data-rotate (иначе inline transform его перетрёт)
-          const rotate = node.dataset.rotate || '';
+          const rotate = (node as HTMLElement).dataset?.rotate || '';
           const y = top * speed + base;
           node.style.transform = `translate3d(0, ${y}px, 0) ${rotate}`;
           node.style.willChange = 'transform';
@@ -33,7 +31,7 @@ export function useParallax(targets: T[], container?: RefObject<HTMLElement>) {
     const onScroll = () => run();
     const onResize = () => run();
 
-    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('scroll', onScroll, { passive: true } as AddEventListenerOptions);
     window.addEventListener('resize', onResize);
     run();
 
@@ -42,5 +40,6 @@ export function useParallax(targets: T[], container?: RefObject<HTMLElement>) {
       window.removeEventListener('resize', onResize);
       if (raf) cancelAnimationFrame(raf);
     };
-  }, [targets.map(t => t.el.current).join('|'), container?.current]);
+  }, [targets.map((t) => t.el.current).join('|'), container?.current]);
 }
+
