@@ -27,11 +27,13 @@ const PhoneInput: React.FC<PhoneInputProps> = ({
 
   // высота/кегль берём на ОБОЛОЧКЕ, чтобы всё внутри совпадало
   const shellBase =
-    size === "hero" ? "h-12 text-base md:h-14 md:text-lg" : "h-11 text-base";
+    size === "hero"
+      ? "h-14 md:h-14 text-base md:text-lg inline-flex w-auto px-5 md:px-6"
+      : "h-11 text-base w-full px-4 inline-flex";
 
   return (
     // ОБОЛОЧКА: сюда прилетит твой inputClassName (рамка, закругление, фокус)
-    <div className={["relative z-0 w-full flex items-center px-4", shellBase, inputClassName, "focus-within:ring-inherit"].join(" ")}>
+    <div className={["relative z-0 flex items-center", shellBase, inputClassName, "focus-within:ring-inherit"].join(" ")}>
       {/* +7 — часть потока, один шрифт с цифрами */}
       <span className="select-none text-current mr-[0.5ch]">+7</span>
 
@@ -40,7 +42,8 @@ const PhoneInput: React.FC<PhoneInputProps> = ({
         type="tel"
         inputMode="numeric"
         className={[
-          "flex-1 h-full bg-transparent outline-none border-0 focus:outline-none",
+          "h-full bg-transparent outline-none border-0 focus:outline-none",
+          size === "hero" ? "min-w-[13ch] md:min-w-[14ch]" : "w-full flex-1",
           "placeholder-gray-400",
         ].join(" ")}
         value={fmt(value)}

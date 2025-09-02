@@ -285,13 +285,13 @@ const Hero = () => {
             {/* Форма ввода телефона */}
             <div className="max-w-2xl mx-auto mb-16">
               <div className="flex flex-row items-center justify-center gap-3">
-                <div className="relative z-10 flex-1 min-w-0">
+                <div className="relative z-10 shrink-0">
                   <PhoneInput
                     value={phoneInput}
                     onChange={setPhoneInput}
                     size="hero"
                     placeholder="960 123-45-67"
-                    inputClassName="w-full px-4 border rounded-full"
+                    inputClassName="border rounded-full"
                   />
                 </div>
 
