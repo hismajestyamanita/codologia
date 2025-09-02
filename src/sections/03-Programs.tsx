@@ -30,7 +30,7 @@ const Programs = () => {
   const programs = [
     {
       age: "8–10 лет",
-      title: "Компьютерная грамотность и первые игры",
+      title: "Программирование",
       badges: ["3D-игры Kodu", "Презентации", "Scratch-анимация"],
       price: "3 600₽",
       fullDescription: {
@@ -67,7 +67,7 @@ const Programs = () => {
     },
     {
       age: "10–12 лет",
-      title: "Мобильные приложения и веб-разработка",
+      title: "Программирование",
       badges: ["Мобильные приложения", "Сайты на Tilda", "VR-проекты"],
       price: "3 600₽",
       fullDescription: {
@@ -111,7 +111,7 @@ const Programs = () => {
     },
     {
       age: "13+ лет",
-      title: "Профессиональная IT-разработка",
+      title: "Программирование",
       badges: ["JavaScript", "Python/C++", "Unity/Arduino"],
       price: "3 600₽",
       fullDescription: {
@@ -241,6 +241,17 @@ const Programs = () => {
       }
     }
   ];
+
+  // Генерируем корректное название для селекта модалки
+  const getSignupProgramTitle = (p: { age: string; title: string }) => {
+    const age = (p.age || '').replace(/\s/g, '');
+    if (p.title === 'Программирование') {
+      if (/8–?10лет|8–?10/.test(age)) return 'Программирование (8–10 лет)';
+      if (/10–?12лет|10–?12/.test(age)) return 'Программирование (10–12 лет)';
+      if (/13\+лет|13\+/.test(age)) return 'Программирование (13+ лет)';
+    }
+    return p.title;
+  };
 
   const openModal = (index: number) => {
     setSelectedProgram(index);
@@ -460,7 +471,7 @@ const Programs = () => {
                       {/* Buttons Row */}
                       <div className="flex gap-3 w-full">
                         <button 
-                          onClick={() => openUnifiedSignupModal(program.title)}
+                          onClick={() => openUnifiedSignupModal(getSignupProgramTitle(program))}
                           className="w-full relative overflow-hidden bg-gradient-to-r from-brand-green via-accent-brightGreen to-brand-green text-brand-black font-bold py-3 px-4 rounded-medium transition-all duration-300 flex items-center justify-center gap-2 group/signup shadow-lg hover:shadow-2xl hover:shadow-brand-green/60 hover:scale-105"
                           style={{
                             boxShadow: '0 0 20px #7CF23D/40, 0 0 40px #7CF23D/20, inset 0 0 20px rgba(255,255,255,0.2)'
@@ -554,7 +565,7 @@ const Programs = () => {
                       {/* Buttons Row */}
                       <div className="flex gap-3 w-full">
                         <button 
-                          onClick={() => openUnifiedSignupModal(program.title)}
+                          onClick={() => openUnifiedSignupModal(getSignupProgramTitle(program))}
                           className="w-full relative overflow-hidden bg-gradient-to-r from-brand-green via-accent-brightGreen to-brand-green text-brand-black font-bold py-3 px-4 rounded-medium transition-all duration-300 flex items-center justify-center gap-2 group/signup shadow-lg hover:shadow-2xl hover:shadow-brand-green/60 hover:scale-105"
                           style={{
                             boxShadow: '0 0 20px #7CF23D/40, 0 0 40px #7CF23D/20, inset 0 0 20px rgba(255,255,255,0.2)'
@@ -717,7 +728,7 @@ const Programs = () => {
                           {/* Buttons Row */}
                           <div className="flex gap-3">
                             <button 
-                              onClick={() => openUnifiedSignupModal(program.title)}
+                              onClick={() => openUnifiedSignupModal(getSignupProgramTitle(program))}
                               className="flex-1 relative overflow-hidden bg-gradient-to-r from-brand-green via-accent-brightGreen to-brand-green text-brand-black font-bold py-3 px-4 rounded-medium transition-all duration-700 ease-out flex items-center justify-center gap-2 group/signup shadow-lg hover:shadow-2xl hover:shadow-brand-green/60 hover:scale-105"
                               style={{
                                 boxShadow: '0 0 20px #7CF23D/40, 0 0 40px #7CF23D/20, inset 0 0 20px rgba(255,255,255,0.2)'
