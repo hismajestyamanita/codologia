@@ -274,6 +274,7 @@ const Hero = () => {
             <div className="text-center mb-12">
               <h1 className="text-4xl lg:text-5xl xl:text-6xl font-bold text-brand-black leading-tight mb-6">
                 Отвлеките ребёнка от компьютерных игр и научите программировать за{' '}
+                <br className="hidden md:block" />
                 <span className="text-brand-green">1,5 часа в неделю</span>
               </h1>
               
@@ -284,7 +285,7 @@ const Hero = () => {
 
             {/* Форма ввода телефона */}
             <div className="max-w-2xl mx-auto mb-16">
-              <div className="flex flex-row items-center justify-center gap-3 md:gap-6 lg:gap-8">
+              <div className="flex flex-row items-center justify-center gap-3 md:gap-5 lg:gap-6">
                 <div className="relative z-10 shrink-0">
                   <PhoneInput
                     value={phoneInput}
