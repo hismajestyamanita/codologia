@@ -11,6 +11,7 @@ const Testimonials = () => {
   const mobileItemRef = useRef<HTMLDivElement>(null);
   const [mobileItemWidth, setMobileItemWidth] = useState<number>(336);
   const [viewportWidth, setViewportWidth] = useState<number>(typeof window !== 'undefined' ? (window.visualViewport?.width || document.documentElement.clientWidth || window.innerWidth) : 375);
+  const [containerOffsetX, setContainerOffsetX] = useState<number>(0);
   const titleAnimation = useScrollAnimation({ delay: 0 });
   const statsAnimation = useScrollAnimation({ delay: 200 });
   const sliderAnimation = useScrollAnimation({ delay: 400 });
@@ -94,6 +95,11 @@ const Testimonials = () => {
       if (el) {
         const rect = el.getBoundingClientRect();
         setMobileItemWidth(Math.round(rect.width));
+      }
+      const track = mobileTrackRef.current;
+      if (track) {
+        const trect = track.getBoundingClientRect();
+        setContainerOffsetX(Math.round(trect.left));
       }
     };
     // Initial + next tick (fonts/images)
@@ -320,7 +326,7 @@ const Testimonials = () => {
               className="flex transition-transform duration-500 ease-in-out cursor-grab active:cursor-grabbing touch-pan-x will-change-transform"
               style={{ 
                 /* Центрируем карточку с учётом фактической ширины элемента: w-80 (320px) + px-4*2 (16px) = 336px */
-                transform: `translateX(${(viewportWidth - mobileItemWidth) / 2 - currentIndex * mobileItemWidth}px)`
+                transform: `translateX(${(viewportWidth - mobileItemWidth) / 2 - containerOffsetX - currentIndex * mobileItemWidth}px)`
               }}
               onTouchStart={(e) => {
                 const touch = e.touches[0];
