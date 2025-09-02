@@ -193,7 +193,7 @@ const Hero = () => {
 
   return (
     <>
-      <section className="w-full bg-white relative overflow-hidden min-h-screen">
+<section className="w-full bg-white relative overflow-hidden h-[900px]">
         {/* Декоративные 3D объекты (десктоп): привязаны к краям контейнера */}
         <div className="absolute inset-0 pointer-events-none hidden md:block z-[1]">
           <div className="mx-auto w-full max-w-[1200px] px-4 md:px-8 relative">
@@ -274,8 +274,7 @@ const Hero = () => {
             <div className="text-center mb-12">
               <h1 className="text-4xl lg:text-5xl xl:text-6xl font-bold text-brand-black leading-tight mb-6">
                 Отвлеките ребёнка от компьютерных игр и научите программировать за{' '}
-                <br className="hidden md:block" />
-                <span className="text-brand-green">1,5 часа в неделю</span>
+                <span className="text-brand-green md:block">за 1,5 часа в неделю</span>
               </h1>
               
               <p className="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto">
