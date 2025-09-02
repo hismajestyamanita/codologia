@@ -28,7 +28,7 @@ const PhoneInput: React.FC<PhoneInputProps> = ({
   // высота/кегль берём на ОБОЛОЧКЕ, чтобы всё внутри совпадало
   const shellBase =
     size === "hero"
-      ? "h-14 md:h-14 text-base md:text-lg inline-flex w-auto px-5 md:px-6"
+      ? "h-14 md:h-14 text-base md:text-lg inline-flex w-auto px-5 md:px-6 whitespace-nowrap"
       : "h-11 text-base w-full px-4 inline-flex";
 
   return (
@@ -43,7 +43,7 @@ const PhoneInput: React.FC<PhoneInputProps> = ({
         inputMode="numeric"
         className={[
           "h-full bg-transparent outline-none border-0 focus:outline-none",
-          size === "hero" ? "min-w-[13ch] md:min-w-[14ch]" : "w-full flex-1",
+          size === "hero" ? "w-[13ch] md:w-[14ch]" : "w-full flex-1",
           "placeholder-gray-400",
         ].join(" ")}
         value={fmt(value)}
