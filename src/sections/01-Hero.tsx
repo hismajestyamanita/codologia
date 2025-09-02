@@ -272,11 +272,14 @@ const Hero = () => {
           <div className="mx-auto w-full max-w-[1200px] px-4 md:px-8 pt-32 pb-16">
             {/* Заголовок и подзаголовок */}
             <div className="text-center mb-12">
-              <h1 className="text-4xl lg:text-5xl xl:text-6xl font-bold text-brand-black leading-tight mb-6">
+              <h1 className="text-4xl lg:text-5xl xl:text-6xl font-bold text-brand-black leading-tight mb-6 hidden">
                 Отвлеките ребёнка от компьютерных игр и научите программировать за{' '}
                 <span className="text-brand-green md:block">за 1,5 часа в неделю</span>
               </h1>
-              
+              <h1 className="text-4xl lg:text-5xl xl:text-6xl font-bold text-brand-black leading-tight mb-6">
+                Отвлеките ребёнка от компьютерных игр и научите программировать
+                <span className="text-brand-green md:block">за 1,5 часа в неделю</span>
+              </h1>
               <p className="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto">
                 Запишитесь на пробное занятие и получите персональный план обучения!
               </p>
