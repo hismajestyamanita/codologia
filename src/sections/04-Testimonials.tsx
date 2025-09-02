@@ -280,7 +280,7 @@ const Testimonials = () => {
                     if (idx !== currentIndex) setCurrentIndex(idx);
                   }
                 }}
-                style={{ paddingLeft: `${mobilePadding}px`, paddingRight: `${mobilePadding}px` }}
+                style={{ paddingLeft: `0px`, paddingRight: `${mobilePadding}px` }}
               >
                 {testimonials.map((testimonial, index) => (
                   <div
@@ -295,7 +295,7 @@ const Testimonials = () => {
                             <Star key={i} className="w-4 h-4 fill-brand-green text-brand-green" />
                           ))}
                         </div>
-                        <p className="text-gray-700 leading-relaxed text-sm">"{testimonial.text}"</p>
+                        <p className="text-gray-700 leading-relaxed text-sm text-left">"{testimonial.text}"</p>
                       </div>
                       <div className="flex items-center gap-3 mt-6">
                         <div>
@@ -355,7 +355,7 @@ const Testimonials = () => {
                         ))}
                       </div>
                       
-                      <p className="text-gray-700 leading-relaxed">
+                      <p className="text-gray-700 leading-relaxed text-left">
                         "{testimonial.text}"
                       </p>
                     </div>
@@ -435,7 +435,7 @@ const Testimonials = () => {
                         ))}
                       </div>
                       
-                      <p className="text-gray-700 leading-relaxed text-sm">
+                      <p className="text-gray-700 leading-relaxed text-sm text-left">
                         "{testimonial.text}"
                       </p>
                     </div>
