@@ -300,7 +300,7 @@ const Testimonials = () => {
                       <div className="flex items-center gap-3 mt-6">
                         <div>
                           <div className="font-semibold text-brand-black text-sm">{testimonial.name}</div>
-                          <div className="text-xs text-gray-500">родитель</div>
+                          <div className="text-xs text-gray-500 text-left">родитель</div>
                         </div>
                       </div>
                     </div>
@@ -364,7 +364,7 @@ const Testimonials = () => {
                     <div className="flex items-center gap-4 mt-6">
                       <div>
                         <div className="font-semibold text-brand-black">{testimonial.name}</div>
-                        <div className="text-sm text-gray-500">родитель</div>
+                        <div className="text-sm text-gray-500 text-left">родитель</div>
                       </div>
                     </div>
                   </div>
@@ -444,7 +444,7 @@ const Testimonials = () => {
                     <div className="flex items-center gap-3 mt-6">
                       <div>
                         <div className="font-semibold text-brand-black text-sm">{testimonial.name}</div>
-                        <div className="text-xs text-gray-500">родитель</div>
+                        <div className="text-xs text-gray-500 text-left">родитель</div>
                       </div>
                     </div>
                   </div>
