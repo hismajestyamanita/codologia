@@ -128,6 +128,30 @@ const Testimonials = () => {
     };
   }, []);
 
+  // Mobile slider helpers (scroll-snap based)
+  const mobilePadding = Math.max(0, Math.round((viewportWidth - mobileItemWidth) / 2));
+  const scrollToMobileIndex = (idx: number, behavior: ScrollBehavior = 'smooth') => {
+    const track = mobileTrackRef.current;
+    if (!track) return;
+    const target = Math.max(0, idx) * mobileItemWidth;
+    track.scrollTo({ left: target, behavior });
+  };
+
+  const goToMobile = (idx: number) => {
+    const max = Math.max(0, testimonials.length - 1);
+    const clamped = Math.min(Math.max(0, idx), max);
+    setCurrentIndex(clamped);
+    scrollToMobileIndex(clamped);
+  };
+
+  const nextMobile = () => goToMobile(currentIndex + 1);
+  const prevMobile = () => goToMobile(currentIndex - 1);
+
+  // Ensure initial centering after measurements
+  useEffect(() => {
+    scrollToMobileIndex(currentIndex, 'auto');
+  }, [mobileItemWidth, viewportWidth]);
+
   // Автопрокрутка каждые 5 секунд
   useEffect(() => {
     if (!isAutoPlaying) return;
@@ -239,6 +263,64 @@ const Testimonials = () => {
             </div>
           </div>
 
+          {/* Mobile Slider (new, scroll-snap) */}
+          <div className="md:hidden overflow-visible relative pb-8">
+            {/* Navigation Arrows */}
+            <button
+              onClick={prevMobile}
+              className="absolute left-4 top-1/2 -translate-y-1/2 w-10 h-10 bg-white/80 backdrop-blur-md border border-gray-200 rounded-full shadow-lg flex items-center justify-center transition-all duration-300 z-10 hover:bg-white hover:scale-110 hover:shadow-xl"
+            >
+              <ChevronLeft className="w-5 h-5 text-brand-black" />
+            </button>
+
+            <button
+              onClick={nextMobile}
+              className="absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 bg-white/80 backdrop-blur-md border border-gray-200 rounded-full shadow-lg flex items-center justify-center transition-all duration-300 z-10 hover:bg-white hover:scale-110 hover:shadow-xl"
+            >
+              <ChevronRight className="w-5 h-5 text-brand-black" />
+            </button>
+
+            <div className="overflow-x-auto">
+              <div
+                ref={mobileTrackRef}
+                className="flex snap-x snap-mandatory scroll-smooth"
+                onScroll={(e) => {
+                  const el = e.currentTarget as HTMLDivElement;
+                  if (mobileItemWidth > 0) {
+                    const idx = Math.round(el.scrollLeft / mobileItemWidth);
+                    if (idx !== currentIndex) setCurrentIndex(idx);
+                  }
+                }}
+                style={{ paddingLeft: `${mobilePadding}px`, paddingRight: `${mobilePadding}px` }}
+              >
+                {testimonials.map((testimonial, index) => (
+                  <div
+                    key={`mobile2-${testimonial.name}-${index}`}
+                    ref={index === 0 ? mobileItemRef : undefined}
+                    className="w-80 flex-shrink-0 px-4 pb-4 snap-center"
+                  >
+                    <div className="bg-brand-white p-6 rounded-medium shadow-lg h-full flex flex-col justify-between">
+                      <div>
+                        <div className="flex items-center gap-1 mb-4">
+                          {[...Array(5)].map((_, i) => (
+                            <Star key={i} className="w-4 h-4 fill-brand-green text-brand-green" />
+                          ))}
+                        </div>
+                        <p className="text-gray-700 leading-relaxed text-sm">"{testimonial.text}"</p>
+                      </div>
+                      <div className="flex items-center gap-3 mt-6">
+                        <div>
+                          <div className="font-semibold text-brand-black text-sm">{testimonial.name}</div>
+                          <div className="text-xs text-gray-500">родитель</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+
           <p className="text-sm text-gray-500 mt-card">
             Все отзывы взяты с нашей{' '}
             <a 
@@ -304,7 +386,7 @@ const Testimonials = () => {
           </div>
 
           {/* Mobile Slider */}
-          <div className="md:hidden overflow-visible relative pb-8">
+          <div className="hidden md:hidden overflow-visible relative pb-8">
             {/* Navigation Arrows */}
             <button
               onClick={prevSlide}
