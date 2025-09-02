@@ -284,7 +284,7 @@ const Hero = () => {
 
             {/* Форма ввода телефона */}
             <div className="max-w-2xl mx-auto mb-16">
-              <div className="flex flex-row items-center justify-center gap-3">
+              <div className="flex flex-row items-center justify-center gap-3 md:gap-6 lg:gap-8">
                 <div className="relative z-10 shrink-0">
                   <PhoneInput
                     value={phoneInput}
