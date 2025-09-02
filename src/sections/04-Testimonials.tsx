@@ -10,7 +10,7 @@ const Testimonials = () => {
   const mobileTrackRef = useRef<HTMLDivElement>(null);
   const mobileItemRef = useRef<HTMLDivElement>(null);
   const [mobileItemWidth, setMobileItemWidth] = useState<number>(336);
-  const [viewportWidth, setViewportWidth] = useState<number>(typeof window !== 'undefined' ? window.innerWidth : 375);
+  const [viewportWidth, setViewportWidth] = useState<number>(typeof window !== 'undefined' ? (window.visualViewport?.width || document.documentElement.clientWidth || window.innerWidth) : 375);
   const titleAnimation = useScrollAnimation({ delay: 0 });
   const statsAnimation = useScrollAnimation({ delay: 200 });
   const sliderAnimation = useScrollAnimation({ delay: 400 });
@@ -86,18 +86,39 @@ const Testimonials = () => {
 
   // Measure slide width on mobile and keep viewport width
   useEffect(() => {
+    if (typeof window === 'undefined') return;
+    const getVW = () => (window.visualViewport?.width || document.documentElement.clientWidth || window.innerWidth);
     const measure = () => {
-      if (typeof window === 'undefined') return;
-      setViewportWidth(window.innerWidth);
+      setViewportWidth(getVW());
       const el = mobileItemRef.current;
-      if (el) setMobileItemWidth(el.offsetWidth);
+      if (el) {
+        const rect = el.getBoundingClientRect();
+        setMobileItemWidth(Math.round(rect.width));
+      }
     };
+    // Initial + next tick (fonts/images)
     measure();
+    const raf = requestAnimationFrame(measure);
+    setTimeout(measure, 0);
+
+    // Listen to viewport changes (iOS Safari visual viewport)
+    const vv = window.visualViewport;
+    const onVVResize = () => measure();
+    vv?.addEventListener('resize', onVVResize);
     window.addEventListener('resize', measure);
-    const id = window.requestAnimationFrame(measure);
+
+    // Observe card width changes
+    let ro: ResizeObserver | undefined;
+    if ('ResizeObserver' in window && mobileItemRef.current) {
+      ro = new ResizeObserver(() => measure());
+      ro.observe(mobileItemRef.current);
+    }
+
     return () => {
+      cancelAnimationFrame(raf);
+      vv?.removeEventListener('resize', onVVResize);
       window.removeEventListener('resize', measure);
-      window.cancelAnimationFrame(id);
+      ro?.disconnect();
     };
   }, []);
 
@@ -296,7 +317,7 @@ const Testimonials = () => {
             <div className="overflow-visible">
             <div 
               ref={mobileTrackRef}
-              className="flex transition-transform duration-500 ease-in-out cursor-grab active:cursor-grabbing touch-pan-x"
+              className="flex transition-transform duration-500 ease-in-out cursor-grab active:cursor-grabbing touch-pan-x will-change-transform"
               style={{ 
                 /* Центрируем карточку с учётом фактической ширины элемента: w-80 (320px) + px-4*2 (16px) = 336px */
                 transform: `translateX(${(viewportWidth - mobileItemWidth) / 2 - currentIndex * mobileItemWidth}px)`
