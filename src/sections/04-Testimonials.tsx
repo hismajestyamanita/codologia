@@ -6,6 +6,11 @@ import { useParallax } from '../shared/hooks/useParallax';
 const Testimonials = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isAutoPlaying, setIsAutoPlaying] = useState(true);
+  // Mobile centering (measure real widths)
+  const mobileTrackRef = useRef<HTMLDivElement>(null);
+  const mobileItemRef = useRef<HTMLDivElement>(null);
+  const [mobileItemWidth, setMobileItemWidth] = useState<number>(336);
+  const [viewportWidth, setViewportWidth] = useState<number>(typeof window !== 'undefined' ? window.innerWidth : 375);
   const titleAnimation = useScrollAnimation({ delay: 0 });
   const statsAnimation = useScrollAnimation({ delay: 200 });
   const sliderAnimation = useScrollAnimation({ delay: 400 });
@@ -78,6 +83,23 @@ const Testimonials = () => {
       image: "https://images.pexels.com/photos/1181695/pexels-photo-1181695.jpeg?auto=compress&cs=tinysrgb&w=150"
     }
   ];
+
+  // Measure slide width on mobile and keep viewport width
+  useEffect(() => {
+    const measure = () => {
+      if (typeof window === 'undefined') return;
+      setViewportWidth(window.innerWidth);
+      const el = mobileItemRef.current;
+      if (el) setMobileItemWidth(el.offsetWidth);
+    };
+    measure();
+    window.addEventListener('resize', measure);
+    const id = window.requestAnimationFrame(measure);
+    return () => {
+      window.removeEventListener('resize', measure);
+      window.cancelAnimationFrame(id);
+    };
+  }, []);
 
   // Автопрокрутка каждые 5 секунд
   useEffect(() => {
@@ -273,10 +295,11 @@ const Testimonials = () => {
 
             <div className="overflow-visible">
             <div 
+              ref={mobileTrackRef}
               className="flex transition-transform duration-500 ease-in-out cursor-grab active:cursor-grabbing touch-pan-x"
               style={{ 
                 /* Центрируем карточку с учётом фактической ширины элемента: w-80 (320px) + px-4*2 (16px) = 336px */
-                transform: `translateX(calc(50vw - 168px - ${currentIndex * 336}px))`
+                transform: `translateX(${(viewportWidth - mobileItemWidth) / 2 - currentIndex * mobileItemWidth}px)`
               }}
               onTouchStart={(e) => {
                 const touch = e.touches[0];
@@ -302,6 +325,7 @@ const Testimonials = () => {
               {testimonials.concat(testimonials, testimonials, testimonials).map((testimonial, index) => (
                 <div 
                   key={`mobile-${testimonial.name}-${index}`}
+                  ref={index === 0 ? mobileItemRef : undefined}
                   className="w-80 flex-shrink-0 px-4 pb-4"
                 >
                   <div className="bg-brand-white p-6 rounded-medium shadow-lg h-full flex flex-col justify-between">
