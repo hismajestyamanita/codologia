@@ -8,9 +8,11 @@ const Testimonials = () => {
   const [isAutoPlaying, setIsAutoPlaying] = useState(true);
   // Mobile centering (measure real widths)
   const mobileTrackRef = useRef<HTMLDivElement>(null);
+  const mobileViewportRef = useRef<HTMLDivElement>(null);
   const mobileItemRef = useRef<HTMLDivElement>(null);
   const [mobileItemWidth, setMobileItemWidth] = useState<number>(336);
   const [viewportWidth, setViewportWidth] = useState<number>(typeof window !== 'undefined' ? (window.visualViewport?.width || document.documentElement.clientWidth || window.innerWidth) : 375);
+  const [mobileContainerWidth, setMobileContainerWidth] = useState<number>(typeof window !== 'undefined' ? (document.documentElement.clientWidth || window.innerWidth) : 375);
   const [containerOffsetX, setContainerOffsetX] = useState<number>(0);
   const titleAnimation = useScrollAnimation({ delay: 0 });
   const statsAnimation = useScrollAnimation({ delay: 200 });
@@ -91,6 +93,8 @@ const Testimonials = () => {
     const getVW = () => (window.visualViewport?.width || document.documentElement.clientWidth || window.innerWidth);
     const measure = () => {
       setViewportWidth(getVW());
+      const vp = mobileViewportRef.current;
+      if (vp) setMobileContainerWidth(vp.clientWidth);
       const el = mobileItemRef.current;
       if (el) {
         const rect = el.getBoundingClientRect();
@@ -129,7 +133,7 @@ const Testimonials = () => {
   }, []);
 
   // Mobile slider helpers (scroll-snap based)
-  const mobilePadding = Math.max(0, Math.round((viewportWidth - mobileItemWidth) / 2));
+  const mobilePadding = Math.max(0, Math.round((mobileContainerWidth - mobileItemWidth) / 2));
   const scrollToMobileIndex = (idx: number, behavior: ScrollBehavior = 'smooth') => {
     const track = mobileTrackRef.current;
     if (!track) return;
@@ -264,8 +268,8 @@ const Testimonials = () => {
           </div>
 
           {/* Mobile Slider (scroll-snap, no arrows) */}
-          <div className="md:hidden relative pb-8">
-            <div className="overflow-x-auto">
+          <div className="md:hidden relative pb-8 mt-8">
+            <div className="overflow-x-auto" ref={mobileViewportRef}>
               <div
                 ref={mobileTrackRef}
                 className="flex snap-x snap-mandatory scroll-smooth"
