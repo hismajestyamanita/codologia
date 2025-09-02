@@ -43,7 +43,7 @@ const PhoneInput: React.FC<PhoneInputProps> = ({
         inputMode="numeric"
         className={[
           "h-full bg-transparent outline-none border-0 focus:outline-none",
-          size === "hero" ? "w-[13ch] md:w-[14ch] text-center" : "w-full flex-1",
+          size === "hero" ? "w-[13ch] md:w-[14ch]" : "w-full flex-1",
           "placeholder-gray-400",
         ].join(" ")}
         value={fmt(value)}
